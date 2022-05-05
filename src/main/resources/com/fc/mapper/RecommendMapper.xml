@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fc.dao.RecommendMapper">
+  <cache/>
+  <resultMap id="BaseResultMap" type="com.fc.entity.Recommend">
+    <id column="r_id" jdbcType="INTEGER" property="rid" />
+    <result column="r_type" jdbcType="INTEGER" property="rtype" />
+    <result column="b_id" jdbcType="INTEGER" property="bid" />
+  </resultMap>
+
+</mapper>

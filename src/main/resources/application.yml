@@ -1,0 +1,55 @@
+server:
+  port: 8080
+
+# 配置数据源
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/book_shop?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 13623684875
+  transaction:
+    rollback-on-commit-failure: true
+  #  devtools:
+  #    restart:
+  #      # 轮询间隔，多久查询一次是否做了修改。默认1s
+  #      poll-interval: 2s
+  #      # 在重新启动之前，在没有任何类路径更改的情况下需要的静默时间。默认400ms
+  #      quiet-period: 1s
+  #      # 是否开启
+  #      enabled: true
+  mvc:
+    view:
+      prefix: /
+      suffix: .jsp
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 100MB
+
+
+
+# mybatis相关配置
+mybatis:
+  # 配置别名需要扫描的包
+  type-aliases-package: com.fc.entity
+  # mapper映射文件
+  mapper-locations: classpath:com/fc/mapper/*.xml
+  configuration:
+    # 配置日志在控制台显示sql语句
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 开启二级缓存
+    cache-enabled: true
+    # 开启驼峰映射
+    map-underscore-to-camel-case: true
+    # 开启懒加载
+    lazy-loading-enabled: true
+    # 开启主键回填
+    use-generated-keys: true
+pagehelper:
+  reasonable: true
+
+
+

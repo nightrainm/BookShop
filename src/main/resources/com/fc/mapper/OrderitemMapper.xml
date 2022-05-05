@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fc.dao.OrderitemMapper">
+  <cache/>
+  <resultMap id="BaseResultMap" type="com.fc.entity.OrderItem">
+    <id column="oi_id" jdbcType="INTEGER" property="oiid" />
+    <result column="oi_price" jdbcType="REAL" property="oiprice" />
+    <result column="oi_amount" jdbcType="INTEGER" property="oiamount" />
+    <result column="b_id" jdbcType="INTEGER" property="bid" />
+    <result column="o_id" jdbcType="VARCHAR" property="oid" />
+  </resultMap>
+
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fc.dao.BookMapper">
+    <cache/>
+    <resultMap id="BaseResultMap" type="com.fc.entity.Book">
+        <id column="b_id" jdbcType="INTEGER" property="bid"/>
+        <result column="b_isbn" jdbcType="VARCHAR" property="bisbn"/>
+        <result column="b_name" jdbcType="VARCHAR" property="bname"/>
+        <result column="b_author" jdbcType="VARCHAR" property="bauthor"/>
+        <result column="b_publisher" jdbcType="VARCHAR" property="bpublisher"/>
+        <result column="b_cover" jdbcType="VARCHAR" property="bcover"/>
+        <result column="b_image1" jdbcType="VARCHAR" property="bimage1"/>
+        <result column="b_image2" jdbcType="VARCHAR" property="bimage2"/>
+        <result column="b_price" jdbcType="REAL" property="bprice"/>
+        <result column="bt_id" jdbcType="INTEGER" property="btid"/>
+        <result column="b_stock" jdbcType="INTEGER" property="bstock"/>
+        <result column="b_mark" jdbcType="VARCHAR" property="bmark"/>
+    </resultMap>
+
+
+
+</mapper>

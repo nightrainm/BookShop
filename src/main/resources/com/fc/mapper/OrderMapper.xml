@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fc.dao.OrderMapper">
+  <cache/>
+  <resultMap id="BaseResultMap" type="com.fc.entity.Order">
+    <id column="o_id" jdbcType="VARCHAR" property="oid" />
+    <result column="o_total" jdbcType="REAL" property="ototal" />
+    <result column="o_amount" jdbcType="INTEGER" property="oamount" />
+    <result column="o_status" jdbcType="INTEGER" property="ostatus" />
+    <result column="o_paytype" jdbcType="INTEGER" property="opaytype" />
+    <result column="u_id" jdbcType="INTEGER" property="uId" />
+    <result column="o_datetime" jdbcType="TIMESTAMP" property="odatetime" />
+    <result column="o_realname" jdbcType="VARCHAR" property="orealname" />
+    <result column="o_phone" jdbcType="VARCHAR" property="ophone" />
+    <result column="o_address" jdbcType="VARCHAR" property="oaddress" />
+  </resultMap>
+
+</mapper>
