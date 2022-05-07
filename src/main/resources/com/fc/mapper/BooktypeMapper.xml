@@ -13,7 +13,17 @@
         group by bt_id;
     </select>
 
+    <insert id="add" >
+        insert into booktype(bt_name) values (#{typeName})
+    </insert>
 
+    <delete id="delete">
+        delete from booktype where  bt_id = #{id}
+    </delete>
+
+    <update id="update" >
+        update booktype set bt_name = #{btname} where bt_id = #{btid}
+    </update>
 
 
 </mapper>

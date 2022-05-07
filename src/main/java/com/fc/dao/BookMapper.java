@@ -10,4 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface BookMapper {
 
     List<Book> findAllByRecommendType(@Param("type") int type);
+
+    Book findById(@Param("id") Integer id);
+
 }
