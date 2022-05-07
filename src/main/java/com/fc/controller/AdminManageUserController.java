@@ -46,5 +46,9 @@ public class AdminManageUserController {
         return mv;
     }
 
-
+    @PostMapping("change_password")
+    public ModelAndView changePassword(User user,ModelAndView mv,HttpSession session){
+        mv = adminManageUserService.updatePassword(user,mv,session);
+        return mv;
+    }
 }

@@ -89,6 +89,18 @@ public class AdminManageUserServiceImpl implements AdminManageUserService {
         return mv;
     }
 
+    @Override
+    public ModelAndView updatePassword(User user, ModelAndView mv, HttpSession session) {
+        int affectedRows = userMapper.updatePassword(user.getUid(), user.getUpwd());
+        if (affectedRows > 0) {
+            session.setAttribute("msg", "修改成功");
+        } else {
+            session.setAttribute("failMsg", "修改失败");
+        }
+        mv.setViewName("redirect:user_list?pageNumber=1");
+        return mv;
+    }
+
 
 }
 

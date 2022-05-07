@@ -16,4 +16,6 @@ public interface AdminManageUserService {
     ModelAndView delete(Integer uid, ModelAndView mv);
 
     ModelAndView update(User user, HttpSession session, ModelAndView mv);
+
+    ModelAndView updatePassword(User user, ModelAndView mv, HttpSession session);
 }

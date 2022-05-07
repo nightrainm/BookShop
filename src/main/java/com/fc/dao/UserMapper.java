@@ -1,6 +1,7 @@
 package com.fc.dao;
 
 import com.fc.entity.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,5 +18,7 @@ public interface UserMapper {
     int delete(Integer uId);
 
     int update(User user);
+
+    int updatePassword(@Param("uid") Integer uid, @Param("upwd") String upwd);
 
 }
