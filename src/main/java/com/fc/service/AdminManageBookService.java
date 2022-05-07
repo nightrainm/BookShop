@@ -12,4 +12,6 @@ public interface AdminManageBookService {
     String getList(Integer pageNumber, Integer rtype, HttpServletRequest request);
 
     String change(Integer bid, Integer rtype, String method, Integer page);
+
+    String update(HttpServletRequest request);
 }

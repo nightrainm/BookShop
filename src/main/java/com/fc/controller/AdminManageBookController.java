@@ -1,5 +1,6 @@
 package com.fc.controller;
 
+import com.fc.entity.Book;
 import com.fc.service.AdminManageBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,5 +36,9 @@ public class AdminManageBookController {
     @GetMapping("book_change")
     public String change(Integer bid, Integer rtype, String method, Integer page) {
         return adminManageBookService.change(bid, rtype, method, page);
+    }
+    @PostMapping("book_update")
+    public String update(HttpServletRequest request){
+        return  adminManageBookService.update(request);
     }
 }

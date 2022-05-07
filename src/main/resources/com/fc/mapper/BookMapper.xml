@@ -15,12 +15,18 @@
         <result column="bt_id" jdbcType="INTEGER" property="btid"/>
         <result column="b_stock" jdbcType="INTEGER" property="bstock"/>
         <result column="b_mark" jdbcType="VARCHAR" property="bmark"/>
+        <!--此为图书类型表的字段-->
         <result column="bt_name" property="btname"/>
     </resultMap>
+
+    <sql id="book">
+        bid, bisbn,bname,bauthor,bpublisher,bcover,bimage1,bimage2,bprice,btid,bstock,bmark
+    </sql>
+
     <select id="findAll" resultMap="BaseResultMap">
         select book.*, booktype.bt_name
         from book
-                 inner join  booktype on book.bt_id = booktype.bt_id
+                 inner join booktype on book.bt_id = booktype.bt_id
     </select>
     <select id="findAllByRecommendType" resultMap="BaseResultMap">
         select book.*, booktype.bt_name
@@ -37,10 +43,52 @@
         where b_id = #{id}
     </select>
 
-    <insert id="insert" >
-        insert into book(b_isbn, b_name, b_author, b_publisher, b_cover, b_image1, b_image2, b_price, bt_id, b_stock, b_mark)
-        VALUE (#{bisbn},#{bname},#{bauthor},#{bpublisher},#{bcover},#{bimage1},#{bimage2},#{bprice},#{btid},#{bstock},#{bmark})
+    <insert id="insert">
+        insert into book(b_isbn, b_name, b_author, b_publisher, b_cover, b_image1, b_image2, b_price, bt_id, b_stock,
+                         b_mark)
+            VALUE (#{bisbn}, #{bname}, #{bauthor}, #{bpublisher}, #{bcover}, #{bimage1}, #{bimage2}, #{bprice}, #{btid},
+                   #{bstock}, #{bmark})
     </insert>
+
+    <update id="update">
+        update book
+        <set>
+            <if test="bisbn != null">
+                b_isbn = #{bisbn},
+            </if>
+            <if test="bname != null">
+                b_name = #{bname},
+            </if>
+            <if test="bauthor != null">
+                b_author = #{bauthor},
+            </if>
+            <if test="bpublisher != null">
+                b_publisher = #{bpublisher},
+            </if>
+            <if test="bcover != null">
+                b_cover = #{bcover},
+            </if>
+            <if test="bimage1 != null">
+                b_image1 = #{bimage1},
+            </if>
+            <if test="bimage2 != null">
+                b_image2 = #{bimage2},
+            </if>
+            <if test="bprice != null">
+                b_price = #{bprice},
+            </if>
+            <if test="btid != null">
+                bt_id = #{btid},
+            </if>
+            <if test="bstock != null">
+                b_stock = #{bstock},
+            </if>
+            <if test="bmark != null">
+                b_mark = #{bmark}
+            </if>
+        </set>
+        where b_id = #{bid}
+    </update>
 
 
 </mapper>

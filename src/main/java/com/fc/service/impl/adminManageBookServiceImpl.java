@@ -111,6 +111,38 @@ public class adminManageBookServiceImpl implements AdminManageBookService {
         return "redirect:book_list?pageNumber=1&rtype=" + page;
     }
 
+    @Override
+    public String update(HttpServletRequest request) {
+        MultipartHttpServletRequest req = (MultipartHttpServletRequest) request;
+        //拿到普通字段
+        Book book = new Book();
+        book.setBid(Integer.valueOf(req.getParameter("bid")));
+        book.setBisbn(req.getParameter("bisbn"));
+        book.setBname(req.getParameter("bname"));
+        book.setBauthor(req.getParameter("bauthor"));
+        book.setBpublisher(req.getParameter("bpublisher"));
+        book.setBprice(Double.valueOf(req.getParameter("bprice")));
+        book.setBtid(Integer.valueOf(req.getParameter("btid")));
+        book.setBstock(Integer.valueOf(req.getParameter("bstock")));
+        book.setBmark(req.getParameter("bmark"));
+        //上传图片
+        String path = req.getServletContext().getRealPath("/images");
+        MultipartFile cover = req.getFileMap().get("bcover");
+        MultipartFile image1 = req.getFileMap().get("bimage1");
+        MultipartFile image2 = req.getFileMap().get("bimage2");
+        if (cover != null && cover.getOriginalFilename() != null && cover.getOriginalFilename().length() > 0) {
+            book.setBcover(FileUploadUtil.fileUpload(cover, path));
+        }
+        if (image1 != null && image1.getOriginalFilename() != null && image1.getOriginalFilename().length() > 0) {
+            book.setBimage1(FileUploadUtil.fileUpload(image1, path));
+        }
+        if (image2 != null && image2.getOriginalFilename() != null && image2.getOriginalFilename().length() > 0) {
+            book.setBimage2(FileUploadUtil.fileUpload(image2, path));
+        }
+        mapper.update(book);
+        return "redirect:book_list?pageNumber=1&rtype=0";
+    }
+
     public int insert(Integer type, Integer id) {
         return recommendMapper.insert(type, id);
     }

@@ -16,4 +16,6 @@ public interface BookMapper {
 
     int insert(Book book);
     List<Book> findAll();
+
+    int update(Book book);
 }
