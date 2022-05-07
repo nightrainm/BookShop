@@ -15,7 +15,10 @@ public interface BookMapper {
     Book findById(@Param("id") Integer id);
 
     int insert(Book book);
+
     List<Book> findAll();
 
     int update(Book book);
+
+    int delete(@Param("id") Integer id);
 }

@@ -143,10 +143,27 @@ public class adminManageBookServiceImpl implements AdminManageBookService {
         return "redirect:book_list?pageNumber=1&rtype=0";
     }
 
+    //删除图书以及推荐类型的所有记录
+    @Override
+    public String delete(Integer bid) {
+        if (bid == null) {
+            return "redirect:book_list?pageNumber=1&rtype=0";
+        }
+        mapper.delete(bid);
+        //根据bid找到在推荐类型表中所有记录，并删除
+        List<Recommend> list = recommendMapper.findByBookId(bid);
+        for (Recommend recommend : list) {
+            recommendMapper.delete(recommend.getRtype(), recommend.getBid());
+        }
+        return "redirect:book_list?pageNumber=1&rtype=0";
+    }
+
+
     public int insert(Integer type, Integer id) {
         return recommendMapper.insert(type, id);
     }
 
+    //删除推荐类型
     public int delete(Integer type, Integer id) {
         return recommendMapper.delete(type, id);
     }

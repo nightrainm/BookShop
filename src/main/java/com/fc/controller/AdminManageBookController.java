@@ -41,4 +41,8 @@ public class AdminManageBookController {
     public String update(HttpServletRequest request){
         return  adminManageBookService.update(request);
     }
+    @GetMapping("book_delete")
+    public String delete(Integer bid){
+        return  adminManageBookService.delete(bid);
+    }
 }

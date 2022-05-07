@@ -14,4 +14,6 @@ public interface AdminManageBookService {
     String change(Integer bid, Integer rtype, String method, Integer page);
 
     String update(HttpServletRequest request);
+
+    String delete(Integer bid);
 }

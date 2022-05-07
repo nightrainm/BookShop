@@ -50,6 +50,10 @@
                    #{bstock}, #{bmark})
     </insert>
 
+    <delete id="delete">
+        delete from book where b_id = #{id}
+    </delete>
+
     <update id="update">
         update book
         <set>
@@ -89,6 +93,8 @@
         </set>
         where b_id = #{bid}
     </update>
+
+
 
 
 </mapper>
