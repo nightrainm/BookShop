@@ -7,6 +7,13 @@
         <result column="bt_name" jdbcType="VARCHAR" property="btname"/>
     </resultMap>
 
+    <select id="findTypesInfo" resultMap="BaseResultMap">
+        select *
+        from booktype
+        group by bt_id;
+    </select>
+
+
 
 
 </mapper>

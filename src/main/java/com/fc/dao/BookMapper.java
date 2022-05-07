@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BookMapper {
 
-
+    List<Book> findAllByRecommendType(@Param("type") int type);
 }

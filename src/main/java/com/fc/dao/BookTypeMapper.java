@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BookTypeMapper {
+    //查看所有类型
+    List<Booktype> findTypesInfo();
 
 
 }

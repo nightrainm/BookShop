@@ -17,6 +17,11 @@
         <result column="b_mark" jdbcType="VARCHAR" property="bmark"/>
     </resultMap>
 
-
+    <select id="findAllByRecommendType" resultMap="BaseResultMap">
+        select book.*
+        from book
+                 inner join recommend on book.b_id = recommend.b_id
+        where recommend.r_type = #{type}
+    </select>
 
 </mapper>
