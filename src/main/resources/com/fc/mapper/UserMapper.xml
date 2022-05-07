@@ -24,4 +24,9 @@
         from user
         where u_id = #{uId}
     </select>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select *
+        from user
+    </select>
 </mapper>

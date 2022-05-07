@@ -3,12 +3,15 @@ package com.fc.service.impl;
 import com.fc.dao.UserMapper;
 import com.fc.entity.User;
 import com.fc.service.AdminManageUserService;
+import com.fc.vo.PageVO;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class AdminManageUserServiceImpl implements AdminManageUserService {
@@ -46,6 +49,18 @@ public class AdminManageUserServiceImpl implements AdminManageUserService {
         } else {
             mv.setViewName("/user_list?pageNumber=1");
         }
+        return mv;
+    }
+
+    @Override
+    public ModelAndView user_list(ModelAndView mv, Integer pageNumber, HttpSession session) {
+        PageHelper.startPage(pageNumber, 8);
+        List<User> users = userMapper.findAll();
+//        PageInfo<User> pageInfo = new PageInfo<>(users);
+        PageVO<User> pageVO = new PageVO<>(users);
+
+        mv.setViewName("admin/user_list");
+        session.setAttribute("p", pageVO);
         return mv;
     }
 

@@ -10,4 +10,7 @@ public interface AdminManageUserService {
     ModelAndView userAdd(ModelAndView mv, HttpSession session, User user);
 
     ModelAndView serEditShow(Integer uid, HttpSession session, ModelAndView mv);
+
+    ModelAndView user_list(ModelAndView mv, Integer pageNumber, HttpSession session);
+
 }
