@@ -29,4 +29,10 @@
         select *
         from user
     </select>
+    <delete id="delete">
+        delete
+        from user
+        where u_id = #{uId}
+    </delete>
+
 </mapper>

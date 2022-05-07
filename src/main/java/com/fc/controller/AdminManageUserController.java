@@ -33,5 +33,11 @@ public class AdminManageUserController {
         mv = adminManageUserService.user_list(mv,pageNumber,session);
         return mv;
     }
+    @GetMapping("user_delete")
+    public ModelAndView delete(Integer uid,ModelAndView mv){
+        mv = adminManageUserService.delete(uid,mv);
+        return mv;
+    }
+
 
 }

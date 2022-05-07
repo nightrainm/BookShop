@@ -13,4 +13,6 @@ public interface UserMapper {
     User selectByPrimaryKey(Integer uId);
 
     List<User> findAll();
+
+    int delete(Integer uId);
 }

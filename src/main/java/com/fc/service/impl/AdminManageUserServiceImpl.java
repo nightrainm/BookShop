@@ -64,6 +64,14 @@ public class AdminManageUserServiceImpl implements AdminManageUserService {
         return mv;
     }
 
+    @Override
+    public ModelAndView delete(Integer uid, ModelAndView mv) {
+        int affectedRows = userMapper.delete(uid);
+        mv.setViewName("redirect:user_list?pageNumber=1");
+
+        return mv;
+    }
+
 }
 
 
