@@ -20,5 +20,8 @@ public class AdminManageBookController {
     public String findById(Integer bid , HttpSession session){
         return adminManageBookService.findById(bid,session);
     }
-
+    @PostMapping("/book_add")
+    public  String insert(HttpServletRequest request){
+        return  adminManageBookService.insert(request);
+    }
 }
