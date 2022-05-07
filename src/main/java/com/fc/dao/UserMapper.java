@@ -15,4 +15,7 @@ public interface UserMapper {
     List<User> findAll();
 
     int delete(Integer uId);
+
+    int update(User user);
+
 }

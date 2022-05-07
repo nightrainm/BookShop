@@ -39,5 +39,12 @@ public class AdminManageUserController {
         return mv;
     }
 
+    @PostMapping("user_update")
+    public ModelAndView userUpdate(User user,HttpSession session,ModelAndView mv){
+        mv = adminManageUserService.update(user,session,mv);
+
+        return mv;
+    }
+
 
 }

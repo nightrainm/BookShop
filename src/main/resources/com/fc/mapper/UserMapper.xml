@@ -35,4 +35,11 @@
         where u_id = #{uId}
     </delete>
 
+    <update id="update">
+        update user
+        set u_phone   = #{uphone},
+            u_address = #{uaddress}
+        where u_id = #{uid}
+    </update>
+
 </mapper>

@@ -72,6 +72,24 @@ public class AdminManageUserServiceImpl implements AdminManageUserService {
         return mv;
     }
 
+    @Override
+    public ModelAndView update(User user, HttpSession session, ModelAndView mv) {
+        mv.setViewName("redirect:user_list?pageNumber=1");
+        User user1 = (User) session.getAttribute("user");
+        if(user1 == null || user1.getUid() == null){
+            return  mv;
+        }
+        if(user.getUid() == null){
+            return  mv;
+        }
+        int affectedRows = userMapper.update(user);
+        user1.setUphone(user.getUphone());
+        user1.setUaddress(user.getUaddress());
+        session.setAttribute("user", user1);
+        return mv;
+    }
+
+
 }
 
 
