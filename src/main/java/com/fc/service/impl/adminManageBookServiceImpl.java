@@ -1,9 +1,13 @@
 package com.fc.service.impl;
 
 import com.fc.dao.BookMapper;
+import com.fc.dao.RecommendMapper;
 import com.fc.entity.Book;
+import com.fc.entity.Recommend;
 import com.fc.service.AdminManageBookService;
 import com.fc.util.FileUploadUtil;
+import com.fc.vo.PageVO;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,19 +15,18 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.List;
 
 @Service
 public class adminManageBookServiceImpl implements AdminManageBookService {
     @Autowired
     private BookMapper mapper;
+    @Autowired
+    private RecommendMapper recommendMapper;
 
     @Override
     public String findById(Integer bid, HttpSession session) {
         Book book = mapper.findById(bid);
-        System.out.println(book.getBname());
         session.setAttribute("g", book);
         return "admin/book_edit";
     }
@@ -60,4 +63,38 @@ public class adminManageBookServiceImpl implements AdminManageBookService {
         mapper.insert(book);
         return "redirect:book_list?pageNumber=1&rtype=0";
     }
+
+    //图书列表
+    @Override
+    public String getList(Integer pageNumber, Integer rtype, HttpServletRequest request) {
+        List<Book> list;
+        PageHelper.startPage(pageNumber, 8);
+        if (rtype == null || rtype == 0) {
+            list = mapper.findAll();
+        } else {
+            list = mapper.findAllByRecommendType(rtype);
+        }
+        //确定此图书的推荐类型
+        for (Book book : list) {
+            List<Recommend> Recommends = recommendMapper.findByBookId(book.getBid());
+            for (Recommend recommend : Recommends) {
+                Integer type = recommend.getRtype();
+                switch (type) {
+                    case 1:
+                        book.setScroll(true);
+                        break;
+                    case 2:
+                        book.setHot(true);
+                        break;
+                    case 3:
+                        book.setNew(true);
+                }
+            }
+        }
+        PageVO<Book> pageVO = new PageVO<>(list);
+        request.setAttribute("rtype", rtype);
+        request.setAttribute("p", pageVO);
+        return "/admin/book_list";
+    }
+
 }

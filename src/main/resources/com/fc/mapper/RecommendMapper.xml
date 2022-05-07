@@ -7,5 +7,7 @@
     <result column="r_type" jdbcType="INTEGER" property="rtype" />
     <result column="b_id" jdbcType="INTEGER" property="bid" />
   </resultMap>
-
+  <select id="findByBookId" resultMap="BaseResultMap">
+    select * from recommend where b_id = #{id}
+  </select>
 </mapper>

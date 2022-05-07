@@ -15,4 +15,5 @@ public interface BookMapper {
     Book findById(@Param("id") Integer id);
 
     int insert(Book book);
+    List<Book> findAll();
 }

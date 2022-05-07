@@ -15,9 +15,13 @@
         <result column="bt_id" jdbcType="INTEGER" property="btid"/>
         <result column="b_stock" jdbcType="INTEGER" property="bstock"/>
         <result column="b_mark" jdbcType="VARCHAR" property="bmark"/>
-        <result column="b_name" property="btname"/>
+        <result column="bt_name" property="btname"/>
     </resultMap>
-
+    <select id="findAll" resultMap="BaseResultMap">
+        select book.*, booktype.bt_name
+        from book
+                 inner join  booktype on book.bt_id = booktype.bt_id
+    </select>
     <select id="findAllByRecommendType" resultMap="BaseResultMap">
         select book.*, booktype.bt_name
         from book
