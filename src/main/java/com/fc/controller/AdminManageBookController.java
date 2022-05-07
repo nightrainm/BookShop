@@ -16,16 +16,24 @@ import javax.servlet.http.HttpSession;
 public class AdminManageBookController {
     @Autowired
     private AdminManageBookService adminManageBookService;
+
     @GetMapping("/book_edit_show")
-    public String findById(Integer bid , HttpSession session){
-        return adminManageBookService.findById(bid,session);
+    public String findById(Integer bid, HttpSession session) {
+        return adminManageBookService.findById(bid, session);
     }
+
     @PostMapping("/book_add")
-    public  String insert(HttpServletRequest request){
-        return  adminManageBookService.insert(request);
+    public String insert(HttpServletRequest request) {
+        return adminManageBookService.insert(request);
     }
+
     @GetMapping("book_list")
-    public  String list(@RequestParam(value = "pageNumber",defaultValue = "1") Integer pageNumber, Integer rtype , HttpServletRequest request){
-        return  adminManageBookService.getList(pageNumber ,rtype, request);
+    public String list(@RequestParam(value = "pageNumber", defaultValue = "1") Integer pageNumber, Integer rtype, HttpServletRequest request) {
+        return adminManageBookService.getList(pageNumber, rtype, request);
+    }
+
+    @GetMapping("book_change")
+    public String change(Integer bid, Integer rtype, String method, Integer page) {
+        return adminManageBookService.change(bid, rtype, method, page);
     }
 }

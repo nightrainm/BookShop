@@ -91,10 +91,33 @@ public class adminManageBookServiceImpl implements AdminManageBookService {
                 }
             }
         }
+
         PageVO<Book> pageVO = new PageVO<>(list);
         request.setAttribute("rtype", rtype);
         request.setAttribute("p", pageVO);
         return "/admin/book_list";
     }
+
+    @Override
+    public String change(Integer bid, Integer rtype, String method, Integer page) {
+        if (method == null || method.length() < 1) {
+            return "redirect:book_list?pageNumber=1&rtype=" + page;
+        }
+        if (method.equals("add")) {
+            insert(rtype, bid);
+        } else {
+            delete(rtype, bid);
+        }
+        return "redirect:book_list?pageNumber=1&rtype=" + page;
+    }
+
+    public int insert(Integer type, Integer id) {
+        return recommendMapper.insert(type, id);
+    }
+
+    public int delete(Integer type, Integer id) {
+        return recommendMapper.delete(type, id);
+    }
+
 
 }

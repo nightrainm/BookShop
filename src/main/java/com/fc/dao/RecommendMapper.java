@@ -9,4 +9,8 @@ import java.util.List;
 @Repository
 public interface RecommendMapper {
     List<Recommend> findByBookId(@Param("id") Integer id);
+
+    int insert(@Param("type") Integer type, @Param("id") Integer id);
+
+    int delete(@Param("type") Integer type, @Param("id") Integer id);
 }
