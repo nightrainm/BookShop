@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 public interface UserMapper {
     int insert(User row);
 
+
+    User selectByPrimaryKey(Integer uId);
 }

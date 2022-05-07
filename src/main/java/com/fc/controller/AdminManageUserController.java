@@ -4,6 +4,7 @@ import com.fc.entity.User;
 import com.fc.service.AdminManageUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,6 +20,11 @@ public class AdminManageUserController {
     @PostMapping("user_add")
     public ModelAndView userAdd(ModelAndView mv, HttpSession session, User user){
         mv = adminManageUserService.userAdd(mv,session,user);
+        return mv;
+    }
+    @GetMapping("user_edit_show")
+    public ModelAndView userEditShow(Integer uid,HttpSession session,ModelAndView mv){
+        mv = adminManageUserService.serEditShow(uid,session,mv);
         return mv;
     }
 }

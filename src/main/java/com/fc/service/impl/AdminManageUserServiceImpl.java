@@ -37,6 +37,18 @@ public class AdminManageUserServiceImpl implements AdminManageUserService {
         return mv;
     }
 
+    @Override
+    public ModelAndView serEditShow(Integer uid, HttpSession session, ModelAndView mv) {
+        User user = userMapper.selectByPrimaryKey(uid);
+        if (user != null) {
+            session.setAttribute("u", user);
+            mv.setViewName("/admin/user_edit");
+        } else {
+            mv.setViewName("/user_list?pageNumber=1");
+        }
+        return mv;
+    }
+
 }
 
 

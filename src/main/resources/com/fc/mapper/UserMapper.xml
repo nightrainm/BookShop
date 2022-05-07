@@ -18,4 +18,10 @@
         insert into user(u_id, u_name, u_pwd, u_realname, u_redgt, u_role, u_mark, u_phone, u_address)
         values (#{uid}, #{uname}, #{upwd}, #{urealname}, #{uredgt}, #{urole}, #{umark}, #{uphone}, #{uaddress})
     </insert>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select *
+        from user
+        where u_id = #{uId}
+    </select>
 </mapper>
