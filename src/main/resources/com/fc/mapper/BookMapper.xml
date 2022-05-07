@@ -15,13 +15,28 @@
         <result column="bt_id" jdbcType="INTEGER" property="btid"/>
         <result column="b_stock" jdbcType="INTEGER" property="bstock"/>
         <result column="b_mark" jdbcType="VARCHAR" property="bmark"/>
+        <result column="b_name" property="btname"/>
     </resultMap>
 
     <select id="findAllByRecommendType" resultMap="BaseResultMap">
-        select book.*
+        select book.*, booktype.bt_name
         from book
                  inner join recommend on book.b_id = recommend.b_id
+                 inner join booktype on book.bt_id = booktype.bt_id
         where recommend.r_type = #{type}
     </select>
+
+    <select id="findById" resultMap="BaseResultMap">
+        select book.*, booktype.bt_name
+        from book
+                 inner join booktype on book.bt_id = booktype.bt_id
+        where b_id = #{id}
+    </select>
+
+    <insert id="insert" >
+        insert into book(b_isbn, b_name, b_author, b_publisher, b_cover, b_image1, b_image2, b_price, bt_id, b_stock, b_mark)
+        VALUE (#{bisbn},#{bname},#{bauthor},#{bpublisher},#{bcover},#{bimage1},#{bimage2},#{bprice},#{btid},#{bstock},#{bmark})
+    </insert>
+
 
 </mapper>
