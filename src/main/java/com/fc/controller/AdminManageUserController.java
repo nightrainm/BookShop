@@ -51,4 +51,11 @@ public class AdminManageUserController {
         mv = adminManageUserService.updatePassword(user,mv,session);
         return mv;
     }
+
+    @GetMapping("logout")
+    public ModelAndView logout(ModelAndView mv,HttpSession session){
+        session.removeAttribute("user");
+        mv.setViewName("redirect:index.jsp");
+        return mv;
+    }
 }
