@@ -20,7 +20,11 @@ public class UserController {
         mv = userService.login(mv, request, response ,tempUser);
         return mv;
     }
-
+    //退出
+    @GetMapping("logout")
+    public ModelAndView logout(ModelAndView mv, HttpSession session, HttpServletResponse response) {
+        return userService.logout(mv,session,response);
+    }
 
 
 }

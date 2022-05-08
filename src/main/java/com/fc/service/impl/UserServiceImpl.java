@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
         if (user != null){
             if (user.getUpwd().equals(tempUser.getUpwd()) ){
                 request.setAttribute("user",user);
-                mv.addObject("msg","登录成功");
+//                mv.addObject("msg","登录成功");
                 HttpSession session = request.getSession(true);
                 session.setAttribute("user",user);
                 session.setMaxInactiveInterval(60 * 30);
@@ -40,6 +40,18 @@ public class UserServiceImpl implements UserService {
             mv.addObject("failMsg","用户名不存在");
             mv.setViewName("user_login");
         }
+        return mv;
+    }
+
+    @Override
+    public ModelAndView logout(ModelAndView mv, HttpSession session, HttpServletResponse response) {
+        //销毁session
+        session.removeAttribute("user");
+        Cookie cookie = new Cookie("JSESSIONID", null);
+        //cookie为0  立即销毁
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        mv.setViewName("redirect:/");
         return mv;
     }
 }
