@@ -13,6 +13,8 @@
     <result column="u_phone" jdbcType="VARCHAR" property="uphone" />
     <result column="u_address" jdbcType="VARCHAR" property="uaddress" />
   </resultMap>
-
+<select id="findById" resultMap="BaseResultMap">
+  select * from user where u_name = #{uname}
+</select>
 
 </mapper>
