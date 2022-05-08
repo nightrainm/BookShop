@@ -1,24 +1,17 @@
 package com.fc.service.impl;
 
 import com.fc.dao.BookMapper;
-import com.fc.dao.BookTypeMapper;
 import com.fc.entity.Book;
-import com.fc.entity.Booktype;
 import com.fc.entity.Recommend;
 import com.fc.service.BookService;
 import com.fc.vo.PageVO;
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -26,10 +19,12 @@ public class BookServiceImpl implements BookService {
     private BookMapper bookMapper;
 
     @Override
-    public ModelAndView search(Integer pageNum, Integer pageSize, String keyword, ModelAndView mv, HttpSession session) {
+    public ModelAndView search(ModelAndView mv, Integer pageNumber, Integer pageSize, String keyword) {
+        PageHelper.startPage(pageNumber,pageSize);
         List<Book> list=bookMapper.search("%"+keyword+"%");
         PageVO<Book> pageVO = new PageVO<>(list);
-        session.setAttribute("p", pageVO);
+        mv.addObject("p",pageVO);
+        mv.addObject("keyword",keyword);
         mv.setViewName("book_search");
         return mv;
     }
@@ -60,12 +55,18 @@ public class BookServiceImpl implements BookService {
         }
         return mv;
     }
+    @Override
+    public ModelAndView books(Integer rtype, Integer pageNumber, Integer pageSize, ModelAndView mv) {
+        PageHelper.startPage(pageNumber,pageSize);
+        List<Recommend> recommends = bookMapper.books(rtype);
+        PageVO<Recommend> pageVO = new PageVO<>(recommends);
+        mv.addObject("p", pageVO);
+        mv.addObject("t", rtype);
+        mv.setViewName("recommend_list");
+        return mv;
+    }
 
 
-    //
-
-
-   //
 
 
 }

@@ -11,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Controller
 
@@ -19,8 +18,8 @@ public class BookController {
     @Autowired
     private BookService bookService;
     @RequestMapping("search_books")
-    public ModelAndView search(ModelAndView mv, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "8") Integer pageSize, String keyword, HttpSession session) {
-        return bookService.search(pageNum, pageSize, keyword,mv,session);
+    public ModelAndView search(ModelAndView mv, @RequestParam(defaultValue = "1") Integer pageNumber, @RequestParam(defaultValue = "8") Integer pageSize, String keyword) {
+        return bookService.search(mv,pageNumber, pageSize, keyword);
     }
     @RequestMapping("book_detail")
     public ModelAndView detail(ModelAndView mv, Integer bid, HttpSession session) {
@@ -29,6 +28,15 @@ public class BookController {
     @RequestMapping("booktypes_list")
     public ModelAndView list(ModelAndView mv, @RequestParam(value = "pageNumber",defaultValue = "1") Integer pageNumber, @RequestParam(defaultValue = "8") Integer pageSize, Integer btid) {
         return   bookService.findAllByType(mv,pageNumber,pageSize,btid);
+    }
+    @RequestMapping("recommend_books")
+    public ModelAndView books(
+                              ModelAndView mv,
+                              @RequestParam Integer rtype,
+                              @RequestParam(defaultValue = "1") Integer pageNumber, @RequestParam(defaultValue = "8") Integer pageSize) {
+
+        return bookService.books(rtype, pageNumber, pageSize,mv);
+
     }
 
 }

@@ -40,6 +40,11 @@
     <select id="findAll" resultMap="BaseResultMap">
         select *  from book
     </select>
-
+<!--   查询推荐图书 -->
+    <select id="books" resultType="com.fc.entity.Book">
+        select * from recommend
+            inner join book b on recommend.b_id = b.b_id
+        where r_type=#{rtype}
+    </select>
 
 </mapper>
