@@ -12,4 +12,6 @@ public interface UserService {
     ModelAndView login(ModelAndView mv, HttpServletRequest request, HttpServletResponse response, User tempUser);
 
     ModelAndView logout(ModelAndView mv, HttpSession session, HttpServletResponse response);
+
+    ModelAndView register(User user, ModelAndView mv);
 }

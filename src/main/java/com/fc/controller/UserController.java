@@ -1,4 +1,5 @@
 package com.fc.controller;
+
 import com.fc.entity.User;
 import com.fc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,16 +15,24 @@ import javax.servlet.http.HttpSession;
 public class UserController {
     @Autowired
     private UserService userService;
+
     //登录
     @PostMapping("login")
-    public ModelAndView login(ModelAndView mv, HttpServletRequest request , HttpServletResponse response, User tempUser) {
-        mv = userService.login(mv, request, response ,tempUser);
+    public ModelAndView login(ModelAndView mv, HttpServletRequest request, HttpServletResponse response, User tempUser) {
+        mv = userService.login(mv, request, response, tempUser);
         return mv;
     }
+
     //退出
     @GetMapping("logout")
     public ModelAndView logout(ModelAndView mv, HttpSession session, HttpServletResponse response) {
-        return userService.logout(mv,session,response);
+        return userService.logout(mv, session, response);
+    }
+
+    //注册
+    @PostMapping("register")
+    public ModelAndView addUser(User user,  ModelAndView mv) {
+        return userService.register(user, mv);
     }
 
 

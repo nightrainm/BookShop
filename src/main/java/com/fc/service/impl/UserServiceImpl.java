@@ -54,4 +54,19 @@ public class UserServiceImpl implements UserService {
         mv.setViewName("redirect:/");
         return mv;
     }
+
+    @Override
+    public ModelAndView register(User user, ModelAndView mv) {
+        user.setUmark("普通用户");
+        user.setUrole(1);
+        try{
+            userMapper.insert(user);
+            mv.setViewName("redirect:user_login.jsp");
+        }catch (Exception e){
+            e.printStackTrace();
+            mv.addObject("msg","用户名重复");
+            mv.setViewName("user_register");
+        }
+        return mv;
+    }
 }
