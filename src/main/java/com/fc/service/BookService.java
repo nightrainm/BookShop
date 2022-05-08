@@ -15,4 +15,6 @@ public interface BookService {
 
     ModelAndView search(Integer pageNum, Integer pageSize, String keyword, ModelAndView mv, HttpSession session);
 
+    ModelAndView findById(Integer bid, ModelAndView mv, HttpSession session);
+
 }

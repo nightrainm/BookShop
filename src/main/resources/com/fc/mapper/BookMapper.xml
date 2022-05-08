@@ -26,6 +26,10 @@
     <select id="search" resultType="com.fc.entity.Book">
         select * from book where b_name like #{keyword}
     </select>
+<!--    根据id查询-->
+    <select id="findById" resultType="com.fc.entity.Book">
+        select * from book where b_id= #{bid}
+    </select>
 
 
 </mapper>

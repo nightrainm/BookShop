@@ -33,6 +33,13 @@ public class BookServiceImpl implements BookService {
         mv.setViewName("book_search");
         return mv;
     }
+    @Override
+    public ModelAndView findById(Integer bid, ModelAndView mv, HttpSession session) {
+        Book book=bookMapper.findById(bid);
+        session.setAttribute("book", book);
+        mv.setViewName("book_detail");
+        return mv;
+    }
 
     //
 

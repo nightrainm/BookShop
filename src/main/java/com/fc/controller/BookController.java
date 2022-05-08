@@ -22,6 +22,10 @@ public class BookController {
     public ModelAndView search(ModelAndView mv, @RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "8") Integer pageSize, String keyword, HttpSession session) {
         return bookService.search(pageNum, pageSize, keyword,mv,session);
     }
+    @RequestMapping("book_detail")
+    public ModelAndView detail(ModelAndView mv, Integer bid, HttpSession session) {
+        return bookService.findById(bid,mv,session);
+    }
 
 }
 

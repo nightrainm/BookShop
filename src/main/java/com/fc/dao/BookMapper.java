@@ -15,4 +15,6 @@ public interface BookMapper {
     List<Book> findAllByRecommendType(@Param("type") int type);
 
     List<Book> search(String keyword);
+
+    Book findById(Integer bid);
 }
