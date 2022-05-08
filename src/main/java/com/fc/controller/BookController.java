@@ -26,6 +26,10 @@ public class BookController {
     public ModelAndView detail(ModelAndView mv, Integer bid, HttpSession session) {
         return bookService.findById(bid,mv,session);
     }
+    @RequestMapping("booktypes_list")
+    public ModelAndView list(ModelAndView mv, @RequestParam(value = "pageNumber",defaultValue = "1") Integer pageNumber, @RequestParam(defaultValue = "8") Integer pageSize, Integer btid) {
+        return   bookService.findAllByType(mv,pageNumber,pageSize,btid);
+    }
 
 }
 

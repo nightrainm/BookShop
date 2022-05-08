@@ -17,4 +17,5 @@ public interface BookService {
 
     ModelAndView findById(Integer bid, ModelAndView mv, HttpSession session);
 
+    ModelAndView findAllByType(ModelAndView mv, Integer pageNumber, Integer pageSize, Integer btid);
 }

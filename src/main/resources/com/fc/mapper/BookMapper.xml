@@ -30,6 +30,16 @@
     <select id="findById" resultType="com.fc.entity.Book">
         select * from book where b_id= #{bid}
     </select>
+<!--   根据图书类型查询 -->
+    <select id="findAllByType" resultMap="BaseResultMap">
+        select book.*,booktype.bt_name from book inner join booktype
+     on book.bt_id = booktype.bt_id where book.bt_id = #{btid}
+
+    </select>
+<!--查询全部-->
+    <select id="findAll" resultMap="BaseResultMap">
+        select *  from book
+    </select>
 
 
 </mapper>

@@ -17,4 +17,8 @@ public interface BookMapper {
     List<Book> search(String keyword);
 
     Book findById(Integer bid);
+
+    List<Book> findAll();
+
+    List<Book> findAllByType(Integer btid);
 }

@@ -41,6 +41,27 @@ public class BookServiceImpl implements BookService {
         return mv;
     }
 
+    @Override
+    public ModelAndView findAllByType(ModelAndView mv, Integer pageNumber, Integer pageSize, Integer btid) {
+        List<Book> list;
+        PageHelper.startPage(pageNumber, pageSize);
+        if (btid < 0){
+            list = bookMapper.findAll();
+        }else {
+            list = bookMapper.findAllByType(btid);
+        }
+        PageVO<Book> pageVO = new PageVO<>(list);
+        if(list.size() > 0){
+            String btname = pageVO.getList().get(0).getBtname();
+            mv.addObject("t", btname);
+            mv.addObject("p", pageVO);
+            mv.addObject("btid", btid);
+            mv.setViewName("booktypes_list");
+        }
+        return mv;
+    }
+
+
     //
 
 
