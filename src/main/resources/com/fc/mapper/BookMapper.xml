@@ -22,29 +22,23 @@
                  inner join recommend on book.b_id = recommend.b_id
         where recommend.r_type = #{type}
     </select>
-<!--模糊查询-->
-    <select id="search" resultType="com.fc.entity.Book">
-        select * from book where b_name like #{keyword}
-    </select>
-<!--    根据id查询-->
-    <select id="findById" resultType="com.fc.entity.Book">
-        select * from book where b_id= #{bid}
-    </select>
-<!--   根据图书类型查询 -->
-    <select id="findAllByType" resultMap="BaseResultMap">
-        select book.*,booktype.bt_name from book inner join booktype
-     on book.bt_id = booktype.bt_id where book.bt_id = #{btid}
+    <!--模糊查询-->
 
-    </select>
-<!--查询全部-->
-    <select id="findAll" resultMap="BaseResultMap">
-        select *  from book
-    </select>
-<!--   查询推荐图书 -->
-    <select id="books" resultType="com.fc.entity.Book">
-        select * from recommend
-            inner join book b on recommend.b_id = b.b_id
-        where r_type=#{rtype}
-    </select>
+    <select id="search" resultMap="BaseResultMap">select book.*, booktype.bt_name from book inner join booktype on book.bt_id = booktype.bt_id where b_name like #{keyword} </select>
+
+    <!-- 根据id查询-->
+
+
+    <select id="findById" resultMap="BaseResultMap"> select book.*, booktype.bt_name from book inner join booktype on book.bt_id = booktype.bt_id where b_id = #{bid} </select>
+
+    <!-- 根据图书类型查询 -->
+
+
+    <select id="findAllByType" resultMap="BaseResultMap">select book.*, booktype.bt_name from book inner join booktype on book.bt_id = booktype.bt_id where book.bt_id = #{btid} </select>
+
+    <!--查询全部-->
+
+
+    <select id="findAll" resultMap="BaseResultMap">select book.*, b.bt_namefrom bookinner join booktype b on book.bt_id = b.bt_id </select>
 
 </mapper>

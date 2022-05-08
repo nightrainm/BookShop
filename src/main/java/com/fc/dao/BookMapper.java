@@ -22,5 +22,4 @@ public interface BookMapper {
 
     List<Book> findAllByType(Integer btid);
 
-    List<Recommend> books(Integer rtype);
 }
