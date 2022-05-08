@@ -34,6 +34,11 @@ public class UserController {
     public ModelAndView addUser(User user,  ModelAndView mv) {
         return userService.register(user, mv);
     }
+    //修改密码
+    @RequestMapping("change_password")
+    public ModelAndView changePassword(Integer uid,String oldupwd,String upwd,ModelAndView mv,HttpSession session){
+        return userService.changePassword(uid,oldupwd,upwd,mv,session);
+    }
 
 
 }

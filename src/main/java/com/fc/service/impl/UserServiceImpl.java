@@ -20,24 +20,24 @@ public class UserServiceImpl implements UserService {
     //登录
     @Override
     public ModelAndView login(ModelAndView mv, HttpServletRequest request, HttpServletResponse response, User tempUser) {
-        User user = userMapper.findById(tempUser.getUname());
-        if (user != null){
-            if (user.getUpwd().equals(tempUser.getUpwd()) ){
-                request.setAttribute("user",user);
+        User user = userMapper.findByUserName(tempUser.getUname());
+        if (user != null) {
+            if (user.getUpwd().equals(tempUser.getUpwd())) {
+                request.setAttribute("user", user);
 //                mv.addObject("msg","登录成功");
                 HttpSession session = request.getSession(true);
-                session.setAttribute("user",user);
+                session.setAttribute("user", user);
                 session.setMaxInactiveInterval(60 * 30);
-                Cookie cookie = new Cookie("JSESSIONID",session.getId());
+                Cookie cookie = new Cookie("JSESSIONID", session.getId());
                 cookie.setMaxAge(30 * 60);
                 mv.setViewName("redirect:/");
                 response.addCookie(cookie);
-            }else {
-                mv.addObject("failMsg","用户名或密码错误");
+            } else {
+                mv.addObject("failMsg", "用户名或密码错误");
                 mv.setViewName("user_login");
             }
-        }else {
-            mv.addObject("failMsg","用户名不存在");
+        } else {
+            mv.addObject("failMsg", "用户名不存在");
             mv.setViewName("user_login");
         }
         return mv;
@@ -59,14 +59,34 @@ public class UserServiceImpl implements UserService {
     public ModelAndView register(User user, ModelAndView mv) {
         user.setUmark("普通用户");
         user.setUrole(1);
-        try{
+        try {
             userMapper.insert(user);
             mv.setViewName("redirect:user_login.jsp");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            mv.addObject("msg","用户名重复");
+            mv.addObject("msg", "用户名重复");
             mv.setViewName("user_register");
         }
+        return mv;
+    }
+
+    @Override
+    public ModelAndView changePassword(Integer uid, String oldupwd, String upwd, ModelAndView mv, HttpSession session) {
+        User user = userMapper.findById(uid);
+        if (user.getUpwd().equals(oldupwd)) {
+            try {
+                user.setUpwd(upwd);
+                userMapper.update(user);
+                session.setAttribute("user", user);
+                mv.addObject("msg","修改成功!");
+            } catch (Exception e) {
+                e.printStackTrace();
+                mv.addObject("failMsg", "修改密码时出现错误，请确认原密码是否正确或联系管理员!");
+            }
+        } else {
+            mv.addObject("failMsg", "原密码不正确！");
+        }
+        mv.setViewName("user_center");
         return mv;
     }
 }

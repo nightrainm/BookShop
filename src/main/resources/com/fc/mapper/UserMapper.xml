@@ -13,10 +13,19 @@
         <result column="u_phone" jdbcType="VARCHAR" property="uphone"/>
         <result column="u_address" jdbcType="VARCHAR" property="uaddress"/>
     </resultMap>
-    <select id="findById" resultMap="BaseResultMap">
+    <sql id="userMap">uname,upwd,urealname,uredgt,urole,umark,
+        uphone,uaddress
+    </sql>
+    <select id="findByUserName" resultMap="BaseResultMap">
         select *
         from user
         where u_name = #{uname}
+    </select>
+
+    <select id="findById" resultMap="BaseResultMap">
+        select *
+        from user
+        where u_id = #{uid}
     </select>
 
     <insert id="insert">
@@ -24,4 +33,34 @@
         values (#{uid}, #{uname}, #{upwd}, #{urealname}, #{uredgt}, #{urole}, #{umark}, #{uphone}, #{uaddress})
     </insert>
 
+    <update id="update">
+        update user
+        <set>
+            <if test="uname != null">
+                u_name = #{uname},
+            </if>
+            <if test="upwd != null">
+                u_pwd = #{upwd},
+            </if>
+            <if test="urealname != null">
+                u_realname = #{urealname},
+            </if>
+            <if test="uredgt != null">
+                u_redgt = #{uredgt},
+            </if>
+            <if test="urole != null">
+                u_role = #{urole},
+            </if>
+            <if test="umark != null">
+                u_mark = #{umark},
+            </if>
+            <if test="uphone != null">
+                u_phone = #{uphone},
+            </if>
+            <if test="uaddress != null">
+                u_address = #{uaddress}
+            </if>
+        </set>
+        where u_id = #{uid}
+    </update>
 </mapper>

@@ -14,4 +14,6 @@ public interface UserService {
     ModelAndView logout(ModelAndView mv, HttpSession session, HttpServletResponse response);
 
     ModelAndView register(User user, ModelAndView mv);
+
+    ModelAndView changePassword(Integer uid, String oldupwd, String upwd, ModelAndView mv, HttpSession session);
 }
