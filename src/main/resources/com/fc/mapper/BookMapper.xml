@@ -16,12 +16,16 @@
         <result column="b_stock" jdbcType="INTEGER" property="bstock"/>
         <result column="b_mark" jdbcType="VARCHAR" property="bmark"/>
     </resultMap>
-
     <select id="findAllByRecommendType" resultMap="BaseResultMap">
         select book.*
         from book
                  inner join recommend on book.b_id = recommend.b_id
         where recommend.r_type = #{type}
     </select>
+<!--模糊查询-->
+    <select id="search" resultType="com.fc.entity.Book">
+        select * from book where b_name like #{keyword}
+    </select>
+
 
 </mapper>
