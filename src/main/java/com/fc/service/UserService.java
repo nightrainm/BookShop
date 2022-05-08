@@ -16,4 +16,6 @@ public interface UserService {
     ModelAndView register(User user, ModelAndView mv);
 
     ModelAndView changePassword(Integer uid, String oldupwd, String upwd, ModelAndView mv, HttpSession session);
+
+    ModelAndView change(ModelAndView mv, User user, HttpSession session);
 }

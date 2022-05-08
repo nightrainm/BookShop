@@ -39,6 +39,12 @@ public class UserController {
     public ModelAndView changePassword(Integer uid,String oldupwd,String upwd,ModelAndView mv,HttpSession session){
         return userService.changePassword(uid,oldupwd,upwd,mv,session);
     }
+    //修改手机号和地址
+    @PostMapping("change_phone_and_address")
+    public ModelAndView change(ModelAndView mv, User user,HttpSession session) {
+        mv = userService.change(mv, user,session);
+        return mv;
+    }
 
 
 }

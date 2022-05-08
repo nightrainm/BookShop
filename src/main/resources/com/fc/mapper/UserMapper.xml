@@ -13,7 +13,7 @@
         <result column="u_phone" jdbcType="VARCHAR" property="uphone"/>
         <result column="u_address" jdbcType="VARCHAR" property="uaddress"/>
     </resultMap>
-    <sql id="userMap">uname,upwd,urealname,uredgt,urole,umark,
+    <sql id="userSql">uname,upwd,urealname,uredgt,urole,umark,
         uphone,uaddress
     </sql>
     <select id="findByUserName" resultMap="BaseResultMap">

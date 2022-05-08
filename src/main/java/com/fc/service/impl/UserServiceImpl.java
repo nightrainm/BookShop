@@ -78,13 +78,30 @@ public class UserServiceImpl implements UserService {
                 user.setUpwd(upwd);
                 userMapper.update(user);
                 session.setAttribute("user", user);
-                mv.addObject("msg","修改成功!");
+                mv.addObject("msg", "修改成功!");
             } catch (Exception e) {
                 e.printStackTrace();
                 mv.addObject("failMsg", "修改密码时出现错误，请确认原密码是否正确或联系管理员!");
             }
         } else {
             mv.addObject("failMsg", "原密码不正确！");
+        }
+        mv.setViewName("user_center");
+        return mv;
+    }
+
+    @Override
+    public ModelAndView change(ModelAndView mv, User user, HttpSession session) {
+        try {
+            userMapper.update(user);
+            mv.addObject("msg", "修改成功!");
+            User tempUser = (User) session.getAttribute("user");
+            tempUser.setUphone(user.getUphone());
+            tempUser.setUaddress(user.getUaddress());
+            session.setAttribute("user", tempUser);
+        } catch (Exception e) {
+            e.printStackTrace();
+            mv.addObject("failMsg", "服务器正忙,请稍后再试!");
         }
         mv.setViewName("user_center");
         return mv;
