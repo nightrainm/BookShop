@@ -5,17 +5,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Order implements Serializable {
+    {
+        this.setItemList(new ArrayList<>());
+        this.setItemMap(new HashMap<>());
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        this.setOid(format.format(System.currentTimeMillis()));
+    }
+
     private String oid;
 
-    private Float ototal;
+    private float ototal;
 
-    private Integer oamount;
+    private int oamount;
 
     private Integer ostatus;
 
@@ -31,6 +39,7 @@ public class Order implements Serializable {
 
     private String oaddress;
 
-    private Map<Integer, OrderItem> itemMap = new HashMap<Integer, OrderItem>();
-    private List<OrderItem> itemList = new ArrayList<OrderItem>();
+    private Map<Integer, OrderItem> itemMap;
+
+    private List<OrderItem> itemList;
 }

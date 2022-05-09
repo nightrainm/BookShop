@@ -11,8 +11,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class OrderItem implements Serializable {
     private Integer oiid;
-    private Float oiprice;
-    private Integer oiamount;
+    private float oiprice;
+    private int oiamount;
     private Integer bid;
     private String oid;
     private Book book;
