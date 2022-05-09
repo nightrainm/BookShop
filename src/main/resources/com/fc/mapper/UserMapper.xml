@@ -1,18 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fc.dao.UserMapper">
-  <cache/>
-  <resultMap id="BaseResultMap" type="com.fc.entity.User">
-    <id column="u_id" jdbcType="INTEGER" property="uid" />
-    <result column="u_name" jdbcType="VARCHAR" property="uname" />
-    <result column="u_pwd" jdbcType="VARCHAR" property="upwd" />
-    <result column="u_realname" jdbcType="VARCHAR" property="urealname" />
-    <result column="u_redgt" jdbcType="TIMESTAMP" property="uredgt" />
-    <result column="u_role" jdbcType="INTEGER" property="urole" />
-    <result column="u_mark" jdbcType="VARCHAR" property="umark" />
-    <result column="u_phone" jdbcType="VARCHAR" property="uphone" />
-    <result column="u_address" jdbcType="VARCHAR" property="uaddress" />
-  </resultMap>
+    <cache/>
+    <resultMap id="BaseResultMap" type="com.fc.entity.User">
+        <id column="u_id" jdbcType="INTEGER" property="uid"/>
+        <result column="u_name" jdbcType="VARCHAR" property="uname"/>
+        <result column="u_pwd" jdbcType="VARCHAR" property="upwd"/>
+        <result column="u_realname" jdbcType="VARCHAR" property="urealname"/>
+        <result column="u_redgt" jdbcType="TIMESTAMP" property="uredgt"/>
+        <result column="u_role" jdbcType="INTEGER" property="urole"/>
+        <result column="u_mark" jdbcType="VARCHAR" property="umark"/>
+        <result column="u_phone" jdbcType="VARCHAR" property="uphone"/>
+        <result column="u_address" jdbcType="VARCHAR" property="uaddress"/>
+    </resultMap>
 
+    <insert id="insert">
+        insert into user(u_id, u_name, u_pwd, u_realname, u_redgt, u_role, u_mark, u_phone, u_address)
+        values (#{uid}, #{uname}, #{upwd}, #{urealname}, #{uredgt}, #{urole}, #{umark}, #{uphone}, #{uaddress})
+    </insert>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select *
+        from user
+        where u_id = #{uId}
+    </select>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select *
+        from user
+    </select>
+    <delete id="delete">
+        delete
+        from user
+        where u_id = #{uId}
+    </delete>
+
+    <update id="update">
+        update user
+        set u_phone   = #{uphone},
+            u_address = #{uaddress}
+        where u_id = #{uid}
+    </update>
+
+    <update id="updatePassword">
+        update user
+        set u_pwd = #{upwd}
+        where u_id = #{uid}
+    </update>
 
 </mapper>

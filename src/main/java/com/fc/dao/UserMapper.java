@@ -8,6 +8,17 @@ import java.util.List;
 
 @Repository
 public interface UserMapper {
+    int insert(User row);
 
+
+    User selectByPrimaryKey(Integer uId);
+
+    List<User> findAll();
+
+    int delete(Integer uId);
+
+    int update(User user);
+
+    int updatePassword(@Param("uid") Integer uid, @Param("upwd") String upwd);
 
 }
