@@ -21,4 +21,14 @@ public interface BookMapper {
     int update(Book book);
 
     int delete(@Param("id") Integer id);
+    List<Book> findAllByRecommendType(@Param("type") int type);
+
+    List<Book> search(String keyword);
+
+    Book findById(Integer bid);
+
+    List<Book> findAll();
+
+    List<Book> findAllByType(Integer btid);
+
 }
