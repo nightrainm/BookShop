@@ -57,4 +57,16 @@ public class OrderServiceImpl implements OrderService {
         return mv;
 
     }
+
+    @Override
+    public ModelAndView submit(ModelAndView mv, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+
+        if (user !=null){
+            mv.setViewName("/order_submit");
+        }else {
+            mv.setViewName("redirect:/user_login.jsp");
+        }
+        return mv;
+    }
 }

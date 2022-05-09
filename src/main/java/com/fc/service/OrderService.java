@@ -8,4 +8,6 @@ public interface OrderService {
     ModelAndView findAll(ModelAndView mv, HttpSession session);
 
     ModelAndView insert(HttpSession session, ModelAndView mv, String opaytype);
+
+    ModelAndView submit(ModelAndView mv, HttpSession session);
 }

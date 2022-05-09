@@ -28,4 +28,9 @@ public class OrderController {
 
 
     }
+    @RequestMapping("order_submit")
+    public ModelAndView submit(ModelAndView mv,HttpSession session){
+        return orderService.submit(mv,session);
+
+    }
 }
