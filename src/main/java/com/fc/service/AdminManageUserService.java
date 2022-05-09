@@ -7,9 +7,9 @@ import javax.servlet.http.HttpSession;
 
 public interface AdminManageUserService {
 
-    ModelAndView userAdd(ModelAndView mv, HttpSession session, User user);
+    ModelAndView userAdd(ModelAndView mv,  User user);
 
-    ModelAndView serEditShow(Integer uid, HttpSession session, ModelAndView mv);
+    ModelAndView userEditShow(Integer uid, HttpSession session, ModelAndView mv);
 
     ModelAndView user_list(ModelAndView mv, Integer pageNumber, HttpSession session);
 

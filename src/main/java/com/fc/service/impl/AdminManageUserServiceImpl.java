@@ -18,36 +18,37 @@ public class AdminManageUserServiceImpl implements AdminManageUserService {
 
     @Autowired
     private UserMapper userMapper;
+
     @Override
-    public ModelAndView userAdd(ModelAndView mv, HttpSession session, User user) {
+    public ModelAndView userAdd(ModelAndView mv, User user) {
         user.setUmark("普通用户");
         user.setUrole(1);
         if (user.getUredgt() == null) {
             user.setUredgt(new Date());
         }
-
-        int affectedRows = userMapper.insert(user);
-        if (affectedRows > 0) {
-            System.out.println("进入跳转");
-            mv.setViewName("forward:user_list?pageNumber=1");
-        } else {
-            session.setAttribute("msg", "用户名重复");
-
+        try {
+            int affectedRows = userMapper.insert(user);
+            if (affectedRows > 0) {
+                mv.setViewName("redirect:user_list?pageNumber=1");
+            } else {
+                mv.addObject("msg", "服务器繁忙请稍后再试！");
+                mv.setViewName("/admin/user_add");
+            }
+        } catch (Exception e) {
+            mv.addObject("msg", "用户名重复");
             mv.setViewName("/admin/user_add");
-
         }
-
         return mv;
     }
 
     @Override
-    public ModelAndView serEditShow(Integer uid, HttpSession session, ModelAndView mv) {
-        User user = userMapper.selectByPrimaryKey(uid);
+    public ModelAndView userEditShow(Integer uid, HttpSession session, ModelAndView mv) {
+        User user = userMapper.findById(uid);
         if (user != null) {
             session.setAttribute("u", user);
             mv.setViewName("/admin/user_edit");
         } else {
-            mv.setViewName("/user_list?pageNumber=1");
+            mv.setViewName("redirect:/user_list?pageNumber=1");
         }
         return mv;
     }
@@ -56,9 +57,7 @@ public class AdminManageUserServiceImpl implements AdminManageUserService {
     public ModelAndView user_list(ModelAndView mv, Integer pageNumber, HttpSession session) {
         PageHelper.startPage(pageNumber, 8);
         List<User> users = userMapper.findAll();
-//        PageInfo<User> pageInfo = new PageInfo<>(users);
         PageVO<User> pageVO = new PageVO<>(users);
-
         mv.setViewName("admin/user_list");
         session.setAttribute("p", pageVO);
         return mv;
@@ -66,36 +65,43 @@ public class AdminManageUserServiceImpl implements AdminManageUserService {
 
     @Override
     public ModelAndView delete(Integer uid, ModelAndView mv) {
-        int affectedRows = userMapper.delete(uid);
+        userMapper.delete(uid);
         mv.setViewName("redirect:user_list?pageNumber=1");
-
         return mv;
     }
 
     @Override
     public ModelAndView update(User user, HttpSession session, ModelAndView mv) {
         mv.setViewName("redirect:user_list?pageNumber=1");
-        User user1 = (User) session.getAttribute("user");
-        if(user1 == null || user1.getUid() == null){
-            return  mv;
+        User tempUser = (User) session.getAttribute("user");
+        if (tempUser == null || tempUser.getUid() == null || user.getUid() == null) {
+            return mv;
         }
-        if(user.getUid() == null){
-            return  mv;
+        try {
+            userMapper.update(user);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        int affectedRows = userMapper.update(user);
-        user1.setUphone(user.getUphone());
-        user1.setUaddress(user.getUaddress());
-        session.setAttribute("user", user1);
+        if (user.getUid().equals(tempUser.getUid())) {
+            tempUser.setUphone(user.getUphone());
+            tempUser.setUaddress(user.getUaddress());
+            session.setAttribute("user", tempUser);
+        }
         return mv;
     }
 
     @Override
     public ModelAndView updatePassword(User user, ModelAndView mv, HttpSession session) {
-        int affectedRows = userMapper.updatePassword(user.getUid(), user.getUpwd());
-        if (affectedRows > 0) {
-            session.setAttribute("msg", "修改成功");
-        } else {
-            session.setAttribute("failMsg", "修改失败");
+        try {
+            int affectedRows = userMapper.update(user);
+            //if (affectedRows > 0) {
+            //    session.setAttribute("msg", "修改成功");
+            //} else {
+            //    session.setAttribute("failMsg", "修改失败");
+            //}
+        } catch (Exception e) {
+            //session.setAttribute("failMsg", "修改失败");
+            e.printStackTrace();
         }
         mv.setViewName("redirect:user_list?pageNumber=1");
         return mv;

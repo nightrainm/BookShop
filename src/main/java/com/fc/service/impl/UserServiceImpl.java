@@ -73,6 +73,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public ModelAndView changePassword(Integer uid, String oldupwd, String upwd, ModelAndView mv, HttpSession session) {
         User user = userMapper.findById(uid);
+        session.removeAttribute("msg");
+        session.removeAttribute("failMsg");
         if (user.getUpwd().equals(oldupwd)) {
             try {
                 user.setUpwd(upwd);

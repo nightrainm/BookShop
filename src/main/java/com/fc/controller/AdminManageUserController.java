@@ -19,13 +19,13 @@ public class AdminManageUserController {
     @Autowired
     private AdminManageUserService adminManageUserService;
     @PostMapping("user_add")
-    public ModelAndView userAdd(ModelAndView mv, HttpSession session, User user){
-        mv = adminManageUserService.userAdd(mv,session,user);
+    public ModelAndView userAdd(ModelAndView mv,  User user){
+        mv = adminManageUserService.userAdd(mv,user);
         return mv;
     }
     @GetMapping("user_edit_show")
     public ModelAndView userEditShow(Integer uid,HttpSession session,ModelAndView mv){
-        mv = adminManageUserService.serEditShow(uid,session,mv);
+        mv = adminManageUserService.userEditShow(uid,session,mv);
         return mv;
     }
     @RequestMapping("user_list")
@@ -55,7 +55,7 @@ public class AdminManageUserController {
     @GetMapping("logout")
     public ModelAndView logout(ModelAndView mv,HttpSession session){
         session.removeAttribute("user");
-        mv.setViewName("redirect:index.jsp");
+        mv.setViewName("redirect:/");
         return mv;
     }
 }

@@ -8,19 +8,17 @@ import java.util.List;
 
 @Repository
 public interface UserMapper {
-    User findByUserName(@Param("uname") String uname);
 
-    User findById(@Param("uid") Integer uid);
-    User selectByPrimaryKey(Integer uId);
-
-    List<User> findAll();
+    int insert(User user);
 
     int delete(Integer uId);
 
     int update(User user);
 
-    int updatePassword(@Param("uid") Integer uid, @Param("upwd") String upwd);
+    User findByUserName(@Param("uname") String uname);
 
-    int insert(User user);
+    User findById(@Param("uid") Integer uid);
+
+    List<User> findAll();
 
 }

@@ -23,11 +23,14 @@
         bid, bisbn,bname,bauthor,bpublisher,bcover,bimage1,bimage2,bprice,btid,bstock,bmark
     </sql>
 
+    <!--查询全部-->
     <select id="findAll" resultMap="BaseResultMap">
-        select book.*, booktype.bt_name
+        select book.*, b.bt_name
         from book
-                 inner join booktype on book.bt_id = booktype.bt_id
+                 inner join booktype b
+                            on book.bt_id = b.bt_id
     </select>
+    <!--根据推荐类型查-->
     <select id="findAllByRecommendType" resultMap="BaseResultMap">
         select book.*, booktype.bt_name
         from book
@@ -35,30 +38,30 @@
                  inner join booktype on book.bt_id = booktype.bt_id
         where recommend.r_type = #{type}
     </select>
-    <!--模糊查询-->
 
-    <select id="search" resultMap="BaseResultMap">select book.*, booktype.bt_name from book inner join booktype on book.bt_id = booktype.bt_id where b_name like #{keyword} </select>
+    <!--模糊查询-->
+    <select id="search" resultMap="BaseResultMap">
+        select book.*, booktype.bt_name
+        from book
+                 inner join booktype on book.bt_id = booktype.bt_id
+        where b_name like #{keyword}
+    </select>
 
     <!-- 根据id查询-->
-
-
-    <select id="findById" resultMap="BaseResultMap"> select book.*, booktype.bt_name from book inner join booktype on book.bt_id = booktype.bt_id where b_id = #{bid} </select>
-
-    <!-- 根据图书类型查询 -->
-
-
-    <select id="findAllByType" resultMap="BaseResultMap">select book.*, booktype.bt_name from book inner join booktype on book.bt_id = booktype.bt_id where book.bt_id = #{btid} </select>
-
-    <!--查询全部-->
-
-
-    <select id="findAll" resultMap="BaseResultMap">select book.*, b.bt_namefrom bookinner join booktype b on book.bt_id = b.bt_id </select>
-
     <select id="findById" resultMap="BaseResultMap">
         select book.*, booktype.bt_name
         from book
                  inner join booktype on book.bt_id = booktype.bt_id
         where b_id = #{id}
+    </select>
+
+
+    <!-- 根据图书类型查询 -->
+    <select id="findAllByType" resultMap="BaseResultMap">
+        select book.*, booktype.bt_name
+        from book
+                 inner join booktype on book.bt_id = booktype.bt_id
+        where book.bt_id = #{btid}
     </select>
 
     <insert id="insert">
@@ -69,7 +72,9 @@
     </insert>
 
     <delete id="delete">
-        delete from book where b_id = #{id}
+        delete
+        from book
+        where b_id = #{id}
     </delete>
 
     <update id="update">
@@ -111,8 +116,6 @@
         </set>
         where b_id = #{bid}
     </update>
-
-
 
 
 </mapper>
