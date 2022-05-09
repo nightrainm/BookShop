@@ -72,5 +72,32 @@ public class OrderServiceImpl implements OrderService {
         return mv;
     }
 
-
+    @Override
+    public String buyBook(Integer bid, HttpSession session) {
+        Order order = (Order) session.getAttribute("order");
+        if (order == null) {
+            order = new Order();
+            session.setAttribute("order", order);
+        }
+        Book book = bookMapper.findById(bid);
+        if (book == null) {
+            return "fail";
+        }
+        Map<Integer, OrderItem> itemMap = order.getItemMap();
+        if (!itemMap.containsKey(bid)) {
+            itemMap.put(bid, new OrderItem());
+        }
+        OrderItem item = itemMap.get(bid);
+        //
+        item.setOiamount(item.getOiamount() + 1);
+        item.setOiprice(book.getBprice());
+        item.setBook(book);
+        //
+        order.setOamount(order.getOamount() + 1);
+        float tempMoney = order.getOtotal() + book.getBprice();
+        String format = String.format("%.1f", tempMoney);
+        float money = Float.parseFloat(format);
+        order.setOtotal(money);
+        return "ok";
+    }
 }

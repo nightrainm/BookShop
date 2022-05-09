@@ -40,7 +40,7 @@ public class AdminManageBookServiceImpl implements AdminManageBookService {
         book.setBname(req.getParameter("bname"));
         book.setBauthor(req.getParameter("bauthor"));
         book.setBpublisher(req.getParameter("bpublisher"));
-        book.setBprice(Double.valueOf(req.getParameter("bprice")));
+        book.setBprice(Float.parseFloat(req.getParameter("bprice")));
         book.setBtid(Integer.valueOf(req.getParameter("btid")));
         book.setBstock(Integer.valueOf(req.getParameter("bstock")));
         book.setBmark(req.getParameter("bmark"));
@@ -121,7 +121,7 @@ public class AdminManageBookServiceImpl implements AdminManageBookService {
         book.setBname(req.getParameter("bname"));
         book.setBauthor(req.getParameter("bauthor"));
         book.setBpublisher(req.getParameter("bpublisher"));
-        book.setBprice(Double.valueOf(req.getParameter("bprice")));
+        book.setBprice(Float.parseFloat(req.getParameter("bprice")));
         book.setBtid(Integer.valueOf(req.getParameter("btid")));
         book.setBstock(Integer.valueOf(req.getParameter("bstock")));
         book.setBmark(req.getParameter("bmark"));

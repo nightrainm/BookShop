@@ -11,4 +11,5 @@ public interface OrderService {
 
     ModelAndView submit(ModelAndView mv, HttpSession session);
 
+    String buyBook(Integer bid, HttpSession session);
 }
