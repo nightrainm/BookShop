@@ -20,4 +20,12 @@ public class OrderController {
         return orderService.findAll(mv,session);
 
     }
+    @RequestMapping("order_confirm")
+    public ModelAndView confirm(HttpSession session, ModelAndView mv, @RequestParam String opaytype){
+
+        return orderService.insert(session,mv,opaytype);
+
+
+
+    }
 }

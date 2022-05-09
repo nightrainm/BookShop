@@ -19,5 +19,9 @@
                       inner join user u on o.u_id = u.u_id
     where u.u_id=#{uid}
   </select>
+  <insert id="insert">
+    insert into `order` (o_id, o_total, o_amount, o_status, o_paytype, u_id, o_datetime, o_realname, o_phone, o_address) VALUES (#{oid},#{ototal},#{oamount},#{ostatus},#{opaytype},#{uid},#{odatetime},#{orealname},#{ophone},#{oaddress})
+
+  </insert>
 
 </mapper>

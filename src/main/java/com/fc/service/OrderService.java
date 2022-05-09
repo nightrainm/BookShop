@@ -6,4 +6,6 @@ import javax.servlet.http.HttpSession;
 
 public interface OrderService {
     ModelAndView findAll(ModelAndView mv, HttpSession session);
+
+    ModelAndView insert(HttpSession session, ModelAndView mv, String opaytype);
 }

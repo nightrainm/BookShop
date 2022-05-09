@@ -32,4 +32,29 @@ public class OrderServiceImpl implements OrderService {
         return mv;
 
     }
+
+    @Override
+    public ModelAndView insert(HttpSession session, ModelAndView mv, String opaytype) {
+        Order order = (Order) session.getAttribute("order");
+        User user = (User) session.getAttribute("user");
+        assert user != null;
+        Integer uid = user.getUid();
+
+        order.setUid(9);
+        order.setOstatus(2);
+        order.setOpaytype(1);
+
+        user.setUrealname( order.getOrealname());
+        user.setUphone(order.getOphone());
+        user.setUaddress(order.getOaddress());
+
+        int affect= orderMapper.insert(order);
+        if (affect>0){
+            session.removeAttribute("order");
+        }
+        mv.setViewName("order_result");
+
+        return mv;
+
+    }
 }
