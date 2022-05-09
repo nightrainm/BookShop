@@ -14,5 +14,10 @@
     <result column="o_phone" jdbcType="VARCHAR" property="ophone" />
     <result column="o_address" jdbcType="VARCHAR" property="oaddress" />
   </resultMap>
+  <select id="findAll" resultType="com.fc.entity.Order">
+    select o.* from `order` o
+                      inner join user u on o.u_id = u.u_id
+    where u.u_id=#{uid}
+  </select>
 
 </mapper>
