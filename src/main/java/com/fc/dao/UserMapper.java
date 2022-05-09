@@ -8,9 +8,9 @@ import java.util.List;
 
 @Repository
 public interface UserMapper {
-    int insert(User row);
+    User findByUserName(@Param("uname") String uname);
 
-
+    User findById(@Param("uid") Integer uid);
     User selectByPrimaryKey(Integer uId);
 
     List<User> findAll();
@@ -20,5 +20,7 @@ public interface UserMapper {
     int update(User user);
 
     int updatePassword(@Param("uid") Integer uid, @Param("upwd") String upwd);
+
+    int insert(User user);
 
 }

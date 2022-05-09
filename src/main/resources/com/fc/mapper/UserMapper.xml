@@ -13,17 +13,24 @@
         <result column="u_phone" jdbcType="VARCHAR" property="uphone"/>
         <result column="u_address" jdbcType="VARCHAR" property="uaddress"/>
     </resultMap>
+    <sql id="userSql">uname,upwd,urealname,uredgt,urole,umark,
+        uphone,uaddress
+    </sql>
+    <select id="findByUserName" resultMap="BaseResultMap">
+        select *
+        from user
+        where u_name = #{uname}
+    </select>
 
+    <select id="findById" resultMap="BaseResultMap">
+        select *
+        from user
+        where u_id = #{uid}
+    </select>
     <insert id="insert">
         insert into user(u_id, u_name, u_pwd, u_realname, u_redgt, u_role, u_mark, u_phone, u_address)
         values (#{uid}, #{uname}, #{upwd}, #{urealname}, #{uredgt}, #{urole}, #{umark}, #{uphone}, #{uaddress})
     </insert>
-
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
-        select *
-        from user
-        where u_id = #{uId}
-    </select>
 
     <select id="findAll" resultMap="BaseResultMap">
         select *
@@ -35,17 +42,40 @@
         where u_id = #{uId}
     </delete>
 
+
+    <insert id="insert">
+        insert into user(u_id, u_name, u_pwd, u_realname, u_redgt, u_role, u_mark, u_phone, u_address)
+        values (#{uid}, #{uname}, #{upwd}, #{urealname}, #{uredgt}, #{urole}, #{umark}, #{uphone}, #{uaddress})
+    </insert>
+
     <update id="update">
         update user
-        set u_phone   = #{uphone},
-            u_address = #{uaddress}
+        <set>
+            <if test="uname != null">
+                u_name = #{uname},
+            </if>
+            <if test="upwd != null">
+                u_pwd = #{upwd},
+            </if>
+            <if test="urealname != null">
+                u_realname = #{urealname},
+            </if>
+            <if test="uredgt != null">
+                u_redgt = #{uredgt},
+            </if>
+            <if test="urole != null">
+                u_role = #{urole},
+            </if>
+            <if test="umark != null">
+                u_mark = #{umark},
+            </if>
+            <if test="uphone != null">
+                u_phone = #{uphone},
+            </if>
+            <if test="uaddress != null">
+                u_address = #{uaddress}
+            </if>
+        </set>
         where u_id = #{uid}
     </update>
-
-    <update id="updatePassword">
-        update user
-        set u_pwd = #{upwd}
-        where u_id = #{uid}
-    </update>
-
 </mapper>
