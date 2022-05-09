@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
-public class adminManageBookServiceImpl implements AdminManageBookService {
+public class AdminManageBookServiceImpl implements AdminManageBookService {
     @Autowired
     private BookMapper mapper;
     @Autowired

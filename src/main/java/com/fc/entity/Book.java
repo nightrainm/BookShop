@@ -18,7 +18,7 @@ public class Book implements Serializable {
     private String bcover;
     private String bimage1;
     private String bimage2;
-    private Double bprice;
+    private float bprice;
     private Integer btid;
     private String btname;
     private Integer bstock;
@@ -26,6 +26,4 @@ public class Book implements Serializable {
     private boolean isScroll;
     private boolean isHot;
     private boolean isNew;
-
-
 }

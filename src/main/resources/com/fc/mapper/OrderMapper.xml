@@ -1,27 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fc.dao.OrderMapper">
-  <cache/>
-  <resultMap id="BaseResultMap" type="com.fc.entity.Order">
-    <id column="o_id" jdbcType="VARCHAR" property="oid" />
-    <result column="o_total" jdbcType="REAL" property="ototal" />
-    <result column="o_amount" jdbcType="INTEGER" property="oamount" />
-    <result column="o_status" jdbcType="INTEGER" property="ostatus" />
-    <result column="o_paytype" jdbcType="INTEGER" property="opaytype" />
-    <result column="u_id" jdbcType="INTEGER" property="uId" />
-    <result column="o_datetime" jdbcType="TIMESTAMP" property="odatetime" />
-    <result column="o_realname" jdbcType="VARCHAR" property="orealname" />
-    <result column="o_phone" jdbcType="VARCHAR" property="ophone" />
-    <result column="o_address" jdbcType="VARCHAR" property="oaddress" />
-  </resultMap>
-  <select id="findAll" resultType="com.fc.entity.Order">
-    select o.* from `order` o
-                      inner join user u on o.u_id = u.u_id
-    where u.u_id=#{uid}
-  </select>
-  <insert id="insert">
-    insert into `order` (o_id, o_total, o_amount, o_status, o_paytype, u_id, o_datetime, o_realname, o_phone, o_address) VALUES (#{oid},#{ototal},#{oamount},#{ostatus},#{opaytype},#{uid},#{odatetime},#{orealname},#{ophone},#{oaddress})
+    <cache/>
+    <resultMap id="BaseResultMap" type="com.fc.entity.Order">
+        <id column="o_id" jdbcType="VARCHAR" property="oid"/>
+        <result column="o_total" jdbcType="REAL" property="ototal"/>
+        <result column="o_amount" jdbcType="INTEGER" property="oamount"/>
+        <result column="o_status" jdbcType="INTEGER" property="ostatus"/>
+        <result column="o_paytype" jdbcType="INTEGER" property="opaytype"/>
+        <result column="u_id" jdbcType="INTEGER" property="uid"/>
+        <result column="o_datetime" jdbcType="TIMESTAMP" property="odatetime"/>
+        <result column="o_realname" jdbcType="VARCHAR" property="orealname"/>
+        <result column="o_phone" jdbcType="VARCHAR" property="ophone"/>
+        <result column="o_address" jdbcType="VARCHAR" property="oaddress"/>
 
-  </insert>
+        <collection property="itemList" javaType="List" ofType="com.fc.entity.OrderItem">
+            <id column="oi_id" jdbcType="INTEGER" property="oiid"/>
+            <result column="oi_price" jdbcType="REAL" property="oiprice"/>
+            <result column="oi_amount" jdbcType="INTEGER" property="oiamount"/>
+            <result column="b_id" jdbcType="INTEGER" property="bid"/>
+            <result column="o_id" jdbcType="VARCHAR" property="oid"/>
+            <association property="book" javaType="com.fc.entity.Book">
+                <id column="b_id" jdbcType="INTEGER" property="bid"/>
+                <result column="b_isbn" jdbcType="VARCHAR" property="bisbn"/>
+                <result column="b_name" jdbcType="VARCHAR" property="bname"/>
+                <result column="b_author" jdbcType="VARCHAR" property="bauthor"/>
+                <result column="b_publisher" jdbcType="VARCHAR" property="bpublisher"/>
+                <result column="b_cover" jdbcType="VARCHAR" property="bcover"/>
+                <result column="b_image1" jdbcType="VARCHAR" property="bimage1"/>
+                <result column="b_image2" jdbcType="VARCHAR" property="bimage2"/>
+                <result column="b_price" jdbcType="REAL" property="bprice"/>
+                <result column="bt_id" jdbcType="INTEGER" property="btid"/>
+                <result column="b_stock" jdbcType="INTEGER" property="bstock"/>
+                <result column="b_mark" jdbcType="VARCHAR" property="bmark"/>
+                <!--此为图书类型表的字段-->
+                <result column="bt_name" property="btname"/>
+            </association>
+        </collection>
+
+    </resultMap>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select o.*, o2.oi_amount, o2.oi_price, b.*, b2.bt_name
+        from `order` o
+                 inner join orderitem o2 on o.o_id = o2.o_id
+                 inner join book b on o2.b_id = b.b_id
+                 inner join booktype b2 on b.bt_id = b2.bt_id
+        where o.u_id = #{uid}
+    </select>
+
+    <insert id="insert">
+        insert into `order` (o_id, o_total, o_amount, o_status, o_paytype, u_id, o_datetime, o_realname, o_phone,
+                             o_address)
+        VALUES (#{oid}, #{ototal}, #{oamount}, #{ostatus}, #{opaytype}, #{uid}, #{odatetime}, #{orealname}, #{ophone},
+                #{oaddress})
+
+    </insert>
 
 </mapper>
