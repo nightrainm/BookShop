@@ -137,10 +137,29 @@ public class OrderServiceImpl implements OrderService {
             item.setOiamount(amount);
         }
         order.setOamount(order.getOamount() - 1);
-        float tempMoney = order.getOtotal() - item.getBook().getBprice();
+        float tempMoney = order.getOtotal() - item.getOiprice();
         String format = String.format("%.1f", tempMoney);
         float money = Float.parseFloat(format);
         order.setOtotal(money);
+        return "ok";
+    }
+
+    @Override
+    public String deleteBooks(Integer bid, HttpSession session) {
+        Order order = (Order) session.getAttribute("order");
+        if (order == null) {
+            return "fail";
+        }
+        Map<Integer, OrderItem> itemMap = order.getItemMap();
+        OrderItem item = itemMap.get(bid);
+        if (item == null) {
+            return "fail";
+        }
+        float tempMoney = order.getOtotal() - item.getOiamount() * item.getOiprice();
+        String format = String.format("%.1f", tempMoney);
+        float money = Float.parseFloat(format);
+        order.setOtotal(money);
+        itemMap.remove(bid);
         return "ok";
     }
 }

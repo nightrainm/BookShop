@@ -14,4 +14,6 @@ public interface OrderService {
     String buyBook(Integer bid, HttpSession session);
 
     String lessenBook(Integer bid, HttpSession session);
+
+    String deleteBooks(Integer bid, HttpSession session);
 }

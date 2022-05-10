@@ -41,4 +41,9 @@ public class OrderController {
     public ModelAndView submit(ModelAndView mv, HttpSession session) {
         return orderService.submit(mv, session);
     }
+    @RequestMapping("books_delete")
+    @ResponseBody
+    public String deleteBooks(Integer bid, HttpSession session){
+        return orderService.deleteBooks(bid,session);
+    }
 }
