@@ -28,7 +28,7 @@ public class OrderController {
     }
 
     @RequestMapping("order_confirm")
-    public ModelAndView confirm(HttpSession session, ModelAndView mv, @RequestParam String opaytype) {
+    public ModelAndView confirm(HttpSession session, ModelAndView mv, @RequestParam Integer opaytype, String opayType) {
         return orderService.insert(session, mv, opaytype);
     }
 

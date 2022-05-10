@@ -51,7 +51,7 @@
         <c:if test="${!empty failmsg }">
             <div class="alert alert-danger">${failmsg }</div>
         </c:if>
-        <p><a class="btn btn-success" href="order_list.jsp">查看我的订单</a></p>
+        <p><a class="btn btn-success" href="order_list">查看我的订单</a></p>
     </div>
 </div>
 <!--//cart-items-->

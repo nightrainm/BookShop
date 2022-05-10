@@ -10,4 +10,9 @@
     <result column="o_id" jdbcType="VARCHAR" property="oid" />
   </resultMap>
 
+  <insert id="insert" >
+        insert into orderitem(oi_price, oi_amount, b_id, o_id)
+        VALUE (#{oiprice},#{oiamount},#{bid},#{oid})
+  </insert>
 </mapper>
+

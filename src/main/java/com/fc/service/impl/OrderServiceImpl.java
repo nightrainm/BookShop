@@ -1,6 +1,7 @@
 package com.fc.service.impl;
 
 import com.fc.dao.BookMapper;
+import com.fc.dao.OrderItemMapper;
 import com.fc.dao.OrderMapper;
 import com.fc.entity.Book;
 import com.fc.entity.Order;
@@ -12,8 +13,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -22,6 +25,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private BookMapper bookMapper;
+    @Autowired
+    private OrderItemMapper orderItemMapper;
 
     @Override
     public ModelAndView findAll(ModelAndView mv, HttpSession session) {
@@ -40,22 +45,34 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public ModelAndView insert(HttpSession session, ModelAndView mv, String opaytype) {
+    public ModelAndView insert(HttpSession session, ModelAndView mv, Integer opaytype) {
         try {
             Order order = (Order) session.getAttribute("order");
             User user = (User) session.getAttribute("user");
             Integer uid = user.getUid();
             order.setUid(uid);
             order.setOstatus(2);
-            order.setOpaytype(1);
+            order.setOpaytype(opaytype);
             order.setOrealname(user.getUrealname());
             order.setOphone(user.getUphone());
             order.setOaddress(user.getUaddress());
+            SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+            order.setOid(format.format(System.currentTimeMillis()));
             orderMapper.insert(order);
             session.removeAttribute("order");
+            //
+            Set<Map.Entry<Integer, OrderItem>> entrySet = order.getItemMap().entrySet();
+            for (Map.Entry<Integer, OrderItem> entry : entrySet) {
+                OrderItem item = entry.getValue();
+                item.setOid(order.getOid());
+                orderItemMapper.insert(item);
+            }
+            mv.addObject("msg", "购买成功！");
         } catch (Exception e) {
             e.printStackTrace();
+            mv.addObject("failmsg", "购买失败！");
         }
+        //mv.setViewName("redirect:/order_list");
         mv.setViewName("order_result");
         return mv;
     }
@@ -92,6 +109,7 @@ public class OrderServiceImpl implements OrderService {
         item.setOiamount(item.getOiamount() + 1);
         item.setOiprice(book.getBprice());
         item.setBook(book);
+        item.setBid(bid);
         //
         order.setOamount(order.getOamount() + 1);
         float tempMoney = order.getOtotal() + book.getBprice();
