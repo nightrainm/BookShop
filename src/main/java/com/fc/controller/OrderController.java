@@ -20,6 +20,11 @@ public class OrderController {
     public String buyBook(Integer bid, HttpSession session) {
         return orderService.buyBook(bid, session);
     }
+    @RequestMapping("books_lessen")
+    @ResponseBody
+    public String lessenBook(Integer bid, HttpSession session){
+        return orderService.lessenBook(bid , session);
+    }
 
     @RequestMapping("order_list")
     public ModelAndView find(ModelAndView mv, HttpSession session) {
