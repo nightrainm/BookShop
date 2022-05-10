@@ -39,6 +39,11 @@
         </collection>
 
     </resultMap>
+    <update id="update">
+        update `order` set o_status = #{ostatus}
+        where o_id = #{oid}
+    </update>
+
 
 
     <delete id="delete">

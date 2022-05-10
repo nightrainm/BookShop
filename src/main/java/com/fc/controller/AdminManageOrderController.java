@@ -1,5 +1,6 @@
 package com.fc.controller;
 
+import com.fc.entity.Order;
 import com.fc.service.AdminManageOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,5 +23,9 @@ public class AdminManageOrderController {
     @GetMapping("order_delete")
     public ModelAndView delete(ModelAndView mv, String oid, Integer ostatus){
         return orderListService.delete(mv,oid,ostatus);
+    }
+    @RequestMapping("order_status_change")
+    public ModelAndView change(ModelAndView mv, Order order){
+        return orderListService.change(mv,order);
     }
 }

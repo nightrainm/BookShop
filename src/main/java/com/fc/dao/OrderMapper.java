@@ -18,4 +18,6 @@ public interface OrderMapper {
     List<Order> findAllByStatus(Integer ostatus);
 
     int delete(String oid);
+
+    int update(String oid, Integer ostatus);
 }

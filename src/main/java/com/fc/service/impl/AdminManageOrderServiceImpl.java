@@ -51,4 +51,14 @@ public class AdminManageOrderServiceImpl implements AdminManageOrderService {
         mv.setViewName("redirect:order_list?pageNumber=1&ostatus="+ostatus);
         return mv;
     }
+    @Override
+    public ModelAndView change(ModelAndView mv, Order order) {
+        try {
+            orderMapper.update(order.getOid(),order.getOstatus());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        mv.setViewName("redirect:order_list?pageNumber=1&ostatus="+order.getOstatus());
+        return mv;
+    }
 }
