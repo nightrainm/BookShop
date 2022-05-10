@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OrderItemMapper {
     int insert(OrderItem item);
+
+    int delete(String oid);
 }

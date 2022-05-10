@@ -14,5 +14,9 @@
         insert into orderitem(oi_price, oi_amount, b_id, o_id)
         VALUE (#{oiprice},#{oiamount},#{bid},#{oid})
   </insert>
+  <delete id="delete">
+    delete from orderitem
+    where o_id=#{oid}
+  </delete>
 </mapper>
 
