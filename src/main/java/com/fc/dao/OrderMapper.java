@@ -8,8 +8,12 @@ import java.util.List;
 @Repository
 public interface OrderMapper {
 
-    List<Order> findAll(int i);
+    List<Order> findAllByUserId(int i);
 
     int insert(Order order);
 
+
+    List<Order> findAll();
+
+    List<Order> findAllByStatus(Integer ostatus);
 }

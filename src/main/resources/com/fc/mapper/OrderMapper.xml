@@ -40,7 +40,37 @@
 
     </resultMap>
 
+
     <select id="findAll" resultMap="BaseResultMap">
+        select o.*, o2.oi_amount, o2.oi_price, b.*, b2.bt_name
+        from `order` o
+                 inner join orderitem o2 on o.o_id = o2.o_id
+                 inner join book b on o2.b_id = b.b_id
+                 inner join booktype b2 on b.bt_id = b2.bt_id
+    </select>
+
+    <select id="findAllByStatus" resultMap="BaseResultMap">
+        select o.*, o2.oi_amount, o2.oi_price, b.*, b2.bt_name
+        from `order` o
+                 inner join orderitem o2 on o.o_id = o2.o_id
+                 inner join book b on o2.b_id = b.b_id
+                 inner join booktype b2 on b.bt_id = b2.bt_id
+        where o.o_status = #{ostatus}
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <select id="findAllByUserId" resultMap="BaseResultMap">
         select o.*, o2.oi_amount, o2.oi_price, b.*, b2.bt_name
         from `order` o
                  inner join orderitem o2 on o.o_id = o2.o_id

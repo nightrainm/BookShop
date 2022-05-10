@@ -38,7 +38,7 @@ public class OrderServiceImpl implements OrderService {
         }
         assert user != null;
         Integer uid = user.getUid();
-        List<Order> orderList = orderMapper.findAll(uid);
+        List<Order> orderList = orderMapper.findAllByUserId(uid);
         session.setAttribute("orderList", orderList);
         mv.setViewName("order_list");
         return mv;
