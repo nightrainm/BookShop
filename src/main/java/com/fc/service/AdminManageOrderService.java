@@ -8,4 +8,6 @@ public interface AdminManageOrderService {
 
     ModelAndView list(ModelAndView mv, Integer pageNumber, Integer pageSize, Integer ostatus, HttpServletRequest request);
 
+    ModelAndView delete(ModelAndView mv, String oid, Integer ostatus);
+
 }

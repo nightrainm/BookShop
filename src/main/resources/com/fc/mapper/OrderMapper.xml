@@ -41,6 +41,12 @@
     </resultMap>
 
 
+    <delete id="delete">
+        delete from `order`
+        where o_id=#{oid}
+    </delete>
+
+
     <select id="findAll" resultMap="BaseResultMap">
         select o.*, o2.oi_amount, o2.oi_price, b.*, b2.bt_name
         from `order` o

@@ -37,4 +37,18 @@ public class AdminManageOrderServiceImpl implements AdminManageOrderService {
         return mv;
 
     }
+    @Override
+    public ModelAndView delete(ModelAndView mv , String oid,Integer ostatus) {
+        try{
+            orderItemMapper.delete(oid);
+            orderMapper.delete(oid);
+        }catch (Exception e){
+            e.printStackTrace();
+            mv.addObject("failmsg","fail");
+        }
+        mv.addObject("msg","ok");
+
+        mv.setViewName("redirect:order_list?pageNumber=1&ostatus="+ostatus);
+        return mv;
+    }
 }
