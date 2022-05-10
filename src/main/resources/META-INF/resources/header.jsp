@@ -19,12 +19,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <h1 class="navbar-brand"><a href="index">叮当书城</a></h1>
+                <h1 class="navbar-brand"><a href="/">叮当书城</a></h1>
             </div>
             <!--navbar-header-->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="index.jsp" <c:if test="${param.flag==1}">class="active"</c:if>>首页</a></li>
+                    <li><a href="/" <c:if test="${param.flag==1}">class="active"</c:if>>首页</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle <c:if test="${param.flag==2}">active</c:if>" data-toggle="dropdown">商品分类<b class="caret"></b></a>
                         <ul class="dropdown-menu multi-column columns-2">

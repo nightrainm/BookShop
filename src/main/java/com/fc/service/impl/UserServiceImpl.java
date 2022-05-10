@@ -21,6 +21,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ModelAndView login(ModelAndView mv, HttpServletRequest request, HttpServletResponse response, User tempUser) {
         User user = userMapper.findByUserName(tempUser.getUname());
+        System.err.println(user);
         if (user != null) {
             if (user.getUpwd().equals(tempUser.getUpwd())) {
                 request.setAttribute("user", user);

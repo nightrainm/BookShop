@@ -22,7 +22,7 @@ public class IndexServiceImpl implements IndexService {
 
     @Override
     public String init(HttpServletRequest req) {
-        HttpSession session = req.getSession(false);
+        HttpSession session = req.getSession(true);
         //初始化图书
         //今日热销
         PageHelper.startPage(1, 1);

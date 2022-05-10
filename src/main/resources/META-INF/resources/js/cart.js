@@ -15,7 +15,9 @@ function buy(bid){
             layer.msg("库存不足,请购买其他商品!", {time:800}, function(){
 
             });
-		}
+		}else if(data === "notLogin"){
+            location.href="../user_login.jsp";
+        }
 		/*if(data=="ok"){
 			layer.msg("操作成功!", {time:800}, function(){
 				location.reload();

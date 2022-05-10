@@ -91,6 +91,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public String buyBook(Integer bid, HttpSession session) {
+        if(session.getAttribute("user") == null){
+            return "notLogin";
+        }
         Order order = (Order) session.getAttribute("order");
         if (order == null) {
             order = new Order();
