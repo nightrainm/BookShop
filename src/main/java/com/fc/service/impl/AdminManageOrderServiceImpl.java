@@ -3,7 +3,6 @@ package com.fc.service.impl;
 import com.fc.dao.OrderItemMapper;
 import com.fc.dao.OrderMapper;
 import com.fc.entity.Order;
-import com.fc.entity.OrderItem;
 import com.fc.service.AdminManageOrderService;
 import com.fc.vo.PageVO;
 import com.github.pagehelper.PageHelper;
@@ -47,7 +46,7 @@ public class AdminManageOrderServiceImpl implements AdminManageOrderService {
     }
 
     @Override
-    public ModelAndView delete(ModelAndView mv, String oid, Integer ostatus) {
+    public ModelAndView delete(ModelAndView mv, String oid, String ostatus) {
         try {
             orderItemMapper.deleteByOid(oid);
             orderMapper.delete(oid);

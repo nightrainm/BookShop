@@ -7,7 +7,7 @@ public interface AdminManageOrderService {
 
     ModelAndView list(ModelAndView mv, Integer pageNumber, Integer pageSize, Integer ostatus);
 
-    ModelAndView delete(ModelAndView mv, String oid, Integer ostatus);
+    ModelAndView delete(ModelAndView mv, String oid, String ostatus);
 
     ModelAndView change(ModelAndView mv, Order order);
 }
