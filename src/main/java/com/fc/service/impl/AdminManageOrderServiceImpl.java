@@ -3,6 +3,7 @@ package com.fc.service.impl;
 import com.fc.dao.OrderItemMapper;
 import com.fc.dao.OrderMapper;
 import com.fc.entity.Order;
+import com.fc.entity.OrderItem;
 import com.fc.service.AdminManageOrderService;
 import com.fc.vo.PageVO;
 import com.github.pagehelper.PageHelper;
@@ -22,19 +23,27 @@ public class AdminManageOrderServiceImpl implements AdminManageOrderService {
 
     @Override
     public ModelAndView list(ModelAndView mv, Integer pageNumber, Integer pageSize, Integer ostatus) {
-        PageHelper.startPage(pageNumber, pageSize);
-        List<Order> list;
-        if (ostatus == 1) {
-            list = orderMapper.findAll();
-        } else {
-            list = orderMapper.findAllByStatus(ostatus);
+        //PageHelper.startPage(pageNumber, pageSize);
+        //List<Order> list;
+        //if (ostatus == null || ostatus <= 1) {
+        //    list = orderMapper.findAll();
+        //} else {
+        //    list = orderMapper.findAllByStatus(ostatus);
+        //}
+        if (ostatus == null || ostatus <= 1) {
+            ostatus = null;
         }
+        PageHelper.startPage(pageNumber, pageSize);
+        List<Order> vo = orderMapper.findOrder(ostatus, null);
+        //
+        for (Order order : vo) {
+            order.setItemList(orderItemMapper.findAllByOid(order.getOid()));
+        }
+        PageVO<Order> p = new PageVO<>(vo);
         mv.addObject("ostatus", ostatus);
-        PageVO<Order> p = new PageVO<>(list);
         mv.addObject("p", p);
         mv.setViewName("admin/order_list");
         return mv;
-
     }
 
     @Override
