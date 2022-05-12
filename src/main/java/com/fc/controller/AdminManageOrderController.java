@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("admin")
@@ -22,7 +21,7 @@ public class AdminManageOrderController {
         return orderListService.list(mv,pageNumber,pageSize,ostatus);
     }
     @GetMapping("order_delete")
-    public ModelAndView delete(ModelAndView mv, String oid, Integer ostatus){
+    public ModelAndView delete(ModelAndView mv, String oid, String ostatus){
         return orderListService.delete(mv,oid,ostatus);
     }
     @RequestMapping("order_status_change")

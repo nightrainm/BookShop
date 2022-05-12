@@ -47,6 +47,7 @@
 
     </insert>
 
+
     <delete id="delete">
         delete
         from `order`
@@ -65,6 +66,17 @@
                  inner join orderitem o2 on o.o_id = o2.o_id
                  inner join book b on o2.b_id = b.b_id
                  inner join booktype b2 on b.bt_id = b2.bt_id
+        order by o_datetime desc
+    </select>
+    <select id="findOrder" resultType="com.fc.entity.Order">
+        select * from `order`
+        where 1 = 1
+        <if test="ostatus != null and ostatus != ''">
+            and o_status = #{ostatus}
+        </if>
+        <if test="uid != null and uid != ''">
+            and u_id = #{uid}
+        </if>
         order by o_datetime desc
     </select>
 
