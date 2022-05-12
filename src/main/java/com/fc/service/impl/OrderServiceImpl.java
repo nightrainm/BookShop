@@ -28,6 +28,7 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderItemMapper orderItemMapper;
 
+    //根据用户id查询订单
     @Override
     public ModelAndView findAll(ModelAndView mv, HttpSession session) {
         //获取user
@@ -44,6 +45,7 @@ public class OrderServiceImpl implements OrderService {
         return mv;
     }
 
+    //确认订单(向表中插入数据)
     @Override
     public ModelAndView insert(HttpSession session, ModelAndView mv, Integer opaytype) {
         try {
@@ -51,6 +53,7 @@ public class OrderServiceImpl implements OrderService {
             User user = (User) session.getAttribute("user");
             Integer uid = user.getUid();
             order.setUid(uid);
+            //选择支付宝或微信则设置状态为已付款
             order.setOstatus(2);
             order.setOpaytype(opaytype);
             order.setOrealname(user.getUrealname());
@@ -77,6 +80,7 @@ public class OrderServiceImpl implements OrderService {
         return mv;
     }
 
+    //提交订单
     @Override
     public ModelAndView submit(ModelAndView mv, HttpSession session) {
         User user = (User) session.getAttribute("user");
@@ -89,9 +93,10 @@ public class OrderServiceImpl implements OrderService {
         return mv;
     }
 
+    //买书
     @Override
     public String buyBook(Integer bid, HttpSession session) {
-        if(session.getAttribute("user") == null){
+        if (session.getAttribute("user") == null) {
             return "notLogin";
         }
         Order order = (Order) session.getAttribute("order");

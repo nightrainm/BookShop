@@ -7,7 +7,7 @@
         <result column="r_type" jdbcType="INTEGER" property="rtype"/>
         <result column="b_id" jdbcType="INTEGER" property="bid"/>
     </resultMap>
-    <select id="findByBookId" resultMap="BaseResultMap">
+    <select id="findAllByBookId" resultMap="BaseResultMap">
         select *
         from recommend
         where b_id = #{id}
@@ -22,5 +22,10 @@
         from recommend
         where r_type = #{type}
           and b_id = #{id}
+    </delete>
+    <delete id="deleteAllByBookId">
+        delete
+        from recommend
+        where b_id = #{id}
     </delete>
 </mapper>

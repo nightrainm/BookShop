@@ -13,7 +13,7 @@
         group by bt_id;
     </select>
 
-    <insert id="add" >
+    <insert id="insert" >
         insert into booktype(bt_name) values (#{typeName})
     </insert>
 

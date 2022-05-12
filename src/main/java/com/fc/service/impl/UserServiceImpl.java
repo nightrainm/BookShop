@@ -19,34 +19,31 @@ public class UserServiceImpl implements UserService {
 
     //登录
     @Override
-    public ModelAndView login(ModelAndView mv, HttpServletRequest request, HttpServletResponse response, User tempUser) {
+    public String login(HttpServletRequest request, HttpServletResponse response, User tempUser) {
         User user = userMapper.findByUserName(tempUser.getUname());
-        System.err.println(user);
         if (user != null) {
             if (user.getUpwd().equals(tempUser.getUpwd())) {
                 request.setAttribute("user", user);
-//                mv.addObject("msg","登录成功");
                 HttpSession session = request.getSession(true);
                 session.setAttribute("user", user);
                 session.setMaxInactiveInterval(60 * 30);
                 Cookie cookie = new Cookie("JSESSIONID", session.getId());
                 cookie.setMaxAge(30 * 60);
-                mv.setViewName("redirect:/");
                 response.addCookie(cookie);
+                return "redirect:/";
             } else {
-                mv.addObject("failMsg", "用户名或密码错误");
-                mv.setViewName("user_login");
+                request.setAttribute("failMsg", "用户名或密码错误");
+                return "user_login";
             }
         } else {
-            mv.addObject("failMsg", "用户名不存在");
-            mv.setViewName("user_login");
+            request.setAttribute("failMsg", "用户名不存在");
         }
-        return mv;
+        return "user_login";
     }
 
     @Override
     public ModelAndView logout(ModelAndView mv, HttpSession session, HttpServletResponse response) {
-        //销毁session
+        //移除session中的user
         session.removeAttribute("user");
         Cookie cookie = new Cookie("JSESSIONID", null);
         //cookie为0  立即销毁

@@ -76,7 +76,7 @@ public class AdminManageBookServiceImpl implements AdminManageBookService {
         }
         //确定此图书的推荐类型
         for (Book book : list) {
-            List<Recommend> Recommends = recommendMapper.findByBookId(book.getBid());
+            List<Recommend> Recommends = recommendMapper.findAllByBookId(book.getBid());
             for (Recommend recommend : Recommends) {
                 Integer type = recommend.getRtype();
                 switch (type) {
@@ -98,18 +98,6 @@ public class AdminManageBookServiceImpl implements AdminManageBookService {
         return "/admin/book_list";
     }
 
-    @Override
-    public String change(Integer bid, Integer rtype, String method, Integer page) {
-        if (method == null || method.length() < 1) {
-            return "redirect:book_list?pageNumber=1&rtype=" + page;
-        }
-        if (method.equals("add")) {
-            insert(rtype, bid);
-        } else {
-            delete(rtype, bid);
-        }
-        return "redirect:book_list?pageNumber=1&rtype=" + page;
-    }
 
     @Override
     public String update(HttpServletRequest request) {
@@ -150,20 +138,29 @@ public class AdminManageBookServiceImpl implements AdminManageBookService {
             return "redirect:book_list?pageNumber=1&rtype=0";
         }
         mapper.delete(bid);
-        //根据bid找到在推荐类型表中所有记录，并删除
-        List<Recommend> list = recommendMapper.findByBookId(bid);
-        for (Recommend recommend : list) {
-            recommendMapper.delete(recommend.getRtype(), recommend.getBid());
-        }
+        //根据bid删除推荐类型表中所有记录
+        recommendMapper.deleteAllByBookId(bid);
         return "redirect:book_list?pageNumber=1&rtype=0";
     }
 
+    @Override
+    public String change(Integer bid, Integer rtype, String method, Integer page) {
+        if (method == null || method.length() < 1) {
+            return "redirect:book_list?pageNumber=1&rtype=" + page;
+        }
+        if (method.equals("add")) {
+            insert(rtype, bid);
+        } else {
+            delete(rtype, bid);
+        }
+        return "redirect:book_list?pageNumber=1&rtype=" + page;
+    }
 
     public int insert(Integer type, Integer id) {
         return recommendMapper.insert(type, id);
     }
 
-    //删除推荐类型
+    //删除图书的推荐类型
     public int delete(Integer type, Integer id) {
         return recommendMapper.delete(type, id);
     }

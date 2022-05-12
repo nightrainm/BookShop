@@ -51,8 +51,8 @@ public class BookServiceImpl implements BookService {
             mv.addObject("t", btname);
             mv.addObject("p", pageVO);
             mv.addObject("btid", btid);
-            mv.setViewName("booktypes_list");
         }
+        mv.setViewName("booktypes_list");
         return mv;
     }
 

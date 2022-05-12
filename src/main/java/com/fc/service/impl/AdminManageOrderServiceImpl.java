@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Service
@@ -22,7 +21,7 @@ public class AdminManageOrderServiceImpl implements AdminManageOrderService {
 
 
     @Override
-    public ModelAndView list(ModelAndView mv, Integer pageNumber, Integer pageSize, Integer ostatus, HttpServletRequest request) {
+    public ModelAndView list(ModelAndView mv, Integer pageNumber, Integer pageSize, Integer ostatus) {
         PageHelper.startPage(pageNumber, pageSize);
         List<Order> list;
         if (ostatus == 1) {
@@ -30,35 +29,34 @@ public class AdminManageOrderServiceImpl implements AdminManageOrderService {
         } else {
             list = orderMapper.findAllByStatus(ostatus);
         }
-        request.setAttribute("ostatus", ostatus);
+        mv.addObject("ostatus", ostatus);
         PageVO<Order> p = new PageVO<>(list);
-        request.setAttribute("p", p);
+        mv.addObject("p", p);
         mv.setViewName("admin/order_list");
         return mv;
 
     }
-    @Override
-    public ModelAndView delete(ModelAndView mv , String oid,Integer ostatus) {
-        try{
-            orderItemMapper.delete(oid);
-            orderMapper.delete(oid);
-        }catch (Exception e){
-            e.printStackTrace();
-            mv.addObject("failmsg","fail");
-        }
-        mv.addObject("msg","ok");
 
-        mv.setViewName("redirect:order_list?pageNumber=1&ostatus="+ostatus);
+    @Override
+    public ModelAndView delete(ModelAndView mv, String oid, Integer ostatus) {
+        try {
+            orderItemMapper.deleteByOid(oid);
+            orderMapper.delete(oid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        mv.setViewName("redirect:order_list?pageNumber=1&ostatus=" + ostatus);
         return mv;
     }
+
     @Override
     public ModelAndView change(ModelAndView mv, Order order) {
         try {
-            orderMapper.update(order.getOid(),order.getOstatus());
-        }catch (Exception e){
+            orderMapper.update(order.getOid(), order.getOstatus());
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        mv.setViewName("redirect:order_list?pageNumber=1&ostatus="+order.getOstatus());
+        mv.setViewName("redirect:order_list?pageNumber=1&ostatus=" + order.getOstatus());
         return mv;
     }
 }

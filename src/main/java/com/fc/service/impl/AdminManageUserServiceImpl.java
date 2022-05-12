@@ -32,40 +32,54 @@ public class AdminManageUserServiceImpl implements AdminManageUserService {
                 mv.setViewName("redirect:user_list?pageNumber=1");
             } else {
                 mv.addObject("msg", "服务器繁忙请稍后再试！");
-                mv.setViewName("/admin/user_add");
+                mv.setViewName("admin/user_add");
             }
         } catch (Exception e) {
             mv.addObject("msg", "用户名重复");
-            mv.setViewName("/admin/user_add");
+            mv.setViewName("admin/user_add");
         }
         return mv;
     }
 
     @Override
     public ModelAndView userEditShow(Integer uid, HttpSession session, ModelAndView mv) {
-        User user = userMapper.findById(uid);
-        if (user != null) {
-            session.setAttribute("u", user);
-            mv.setViewName("/admin/user_edit");
-        } else {
+        try {
+            User user = userMapper.findById(uid);
+            if (user != null) {
+                session.setAttribute("u", user);
+                mv.setViewName("admin/user_edit");
+            } else {
+                mv.setViewName("redirect:/user_list?pageNumber=1");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
             mv.setViewName("redirect:/user_list?pageNumber=1");
         }
+
         return mv;
     }
 
     @Override
     public ModelAndView user_list(ModelAndView mv, Integer pageNumber, HttpSession session) {
-        PageHelper.startPage(pageNumber, 8);
-        List<User> users = userMapper.findAll();
-        PageVO<User> pageVO = new PageVO<>(users);
+        try {
+            PageHelper.startPage(pageNumber, 8);
+            List<User> users = userMapper.findAll();
+            PageVO<User> pageVO = new PageVO<>(users);
+            session.setAttribute("p", pageVO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         mv.setViewName("admin/user_list");
-        session.setAttribute("p", pageVO);
         return mv;
     }
 
     @Override
     public ModelAndView delete(Integer uid, ModelAndView mv) {
-        userMapper.delete(uid);
+        try {
+            userMapper.delete(uid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         mv.setViewName("redirect:user_list?pageNumber=1");
         return mv;
     }
@@ -93,14 +107,8 @@ public class AdminManageUserServiceImpl implements AdminManageUserService {
     @Override
     public ModelAndView updatePassword(User user, ModelAndView mv, HttpSession session) {
         try {
-            int affectedRows = userMapper.update(user);
-            //if (affectedRows > 0) {
-            //    session.setAttribute("msg", "修改成功");
-            //} else {
-            //    session.setAttribute("failMsg", "修改失败");
-            //}
+            userMapper.update(user);
         } catch (Exception e) {
-            //session.setAttribute("failMsg", "修改失败");
             e.printStackTrace();
         }
         mv.setViewName("redirect:user_list?pageNumber=1");

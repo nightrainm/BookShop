@@ -18,9 +18,8 @@ public class UserController {
 
     //登录
     @PostMapping("login")
-    public ModelAndView login(ModelAndView mv, HttpServletRequest request, HttpServletResponse response, User tempUser) {
-        mv = userService.login(mv, request, response, tempUser);
-        return mv;
+    public String login( HttpServletRequest request, HttpServletResponse response, User tempUser) {
+        return userService.login(request, response, tempUser);
     }
 
     //退出
@@ -31,19 +30,20 @@ public class UserController {
 
     //注册
     @PostMapping("register")
-    public ModelAndView addUser(User user,  ModelAndView mv) {
+    public ModelAndView addUser(User user, ModelAndView mv) {
         return userService.register(user, mv);
     }
+
     //修改密码
     @RequestMapping("change_password")
-    public ModelAndView changePassword(Integer uid,String oldupwd,String upwd,ModelAndView mv,HttpSession session){
-        return userService.changePassword(uid,oldupwd,upwd,mv,session);
+    public ModelAndView changePassword(Integer uid, String oldupwd, String upwd, ModelAndView mv, HttpSession session) {
+        return userService.changePassword(uid, oldupwd, upwd, mv, session);
     }
+
     //修改手机号和地址
     @PostMapping("change_phone_and_address")
-    public ModelAndView change(ModelAndView mv, User user,HttpSession session) {
-        mv = userService.change(mv, user,session);
-        return mv;
+    public ModelAndView change(ModelAndView mv, User user, HttpSession session) {
+        return userService.change(mv, user, session);
     }
 
 

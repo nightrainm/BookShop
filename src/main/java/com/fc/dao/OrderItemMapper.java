@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 public interface OrderItemMapper {
     int insert(OrderItem item);
 
-    int delete(String oid);
+    int deleteByOid(String oid);
 }

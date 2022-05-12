@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page isELIgnored="false" %>
 
 <!DOCTYPE html>
@@ -21,11 +22,21 @@
 
     <br>
     <ul role="tablist" class="nav nav-tabs">
-        <li <c:if test="${ostatus==1 }">class="active"</c:if> role="presentation"><a href="order_list?pageNumber=1&ostatus=1">全部订单</a></li>
-        <li <c:if test="${ostatus==5 }">class="active"</c:if> role="presentation"><a href="order_list?pageNumber=1&ostatus=5">未付款</a></li>
-        <li <c:if test="${ostatus==2 }">class="active"</c:if> role="presentation"><a href="order_list?pageNumber=1&ostatus=2">已付款</a></li>
-        <li <c:if test="${ostatus==3 }">class="active"</c:if> role="presentation"><a href="order_list?pageNumber=1&ostatus=3">配送中</a></li>
-        <li <c:if test="${ostatus==4 }">class="active"</c:if> role="presentation"><a href="order_list?pageNumber=1&ostatus=4">已完成</a></li>
+        <li
+                <c:if test="${ostatus==1 }">class="active"</c:if> role="presentation"><a
+                href="order_list?pageNumber=1&ostatus=1">全部订单</a></li>
+        <li
+<%--                <c:if test="${ostatus==5 }">class="active"</c:if> role="presentation"><a--%>
+<%--                href="order_list?pageNumber=1&ostatus=5">未付款</a></li>--%>
+        <li
+                <c:if test="${ostatus==2 }">class="active"</c:if> role="presentation"><a
+                href="order_list?pageNumber=1&ostatus=2">已付款</a></li>
+        <li
+                <c:if test="${ostatus==3 }">class="active"</c:if> role="presentation"><a
+                href="order_list?pageNumber=1&ostatus=3">配送中</a></li>
+        <li
+                <c:if test="${ostatus==4 }">class="active"</c:if> role="presentation"><a
+                href="order_list?pageNumber=1&ostatus=4">已完成</a></li>
     </ul>
 
     <br>
@@ -63,7 +74,6 @@
                         <c:if test="${order.ostatus==2 }"><span style="color:red;">已付款</span></c:if>
                         <c:if test="${order.ostatus==3 }"><span style="color:green;">已发货</span></c:if>
                         <c:if test="${order.ostatus==4 }"><span style="color:black;">已完成</span></c:if>
-
                     </p>
                 </td>
                 <td>
@@ -71,12 +81,14 @@
 
                         <c:if test="${order.opaytype==1 }">微信</c:if>
                         <c:if test="${order.opaytype==2 }">支付宝</c:if>
-                        <c:if test="${order.opaytype==3 }">货到付款</c:if>
+<%--                        <c:if test="${order.opaytype==3 }">货到付款</c:if>--%>
 
                     </p>
                 </td>
                 <td><p>${order.orealname }</p></td>
-                <td><p>${order.odatetime }</p></td>
+                <td>
+                    <p><fmt:formatDate value="${order.odatetime}" pattern="yyyy年MM月dd日 HH:mm:ss"/></p>
+                </td>
                 <td>
                     <c:if test="${order.ostatus==2 }">
                         <a class="btn btn-success" href="order_status_change?oid=${order.oid}&ostatus=3">发货</a>

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public interface UserService {
-    ModelAndView login(ModelAndView mv, HttpServletRequest request, HttpServletResponse response, User tempUser);
+    String login(HttpServletRequest request, HttpServletResponse response, User tempUser);
 
     ModelAndView logout(ModelAndView mv, HttpSession session, HttpServletResponse response);
 

@@ -8,6 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page isELIgnored="false" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -25,11 +27,6 @@
 <body>
 
 
-
-
-
-
-
 <!--header-->
 <jsp:include page="header.jsp">
     <jsp:param name="flag" value="5"></jsp:param>
@@ -40,7 +37,6 @@
 <!--cart-items-->
 <div class="cart-items">
     <div class="container">
-
 
 
         <h2>我的订单</h2>
@@ -87,29 +83,24 @@
 
                             <c:if test="${order.opaytype==1 }">微信</c:if>
                             <c:if test="${order.opaytype==2 }">支付宝</c:if>
-                            <c:if test="${order.opaytype==3 }">货到付款</c:if>
+<%--                            <c:if test="${order.opaytype==3 }">货到付款</c:if>--%>
 
                         </p>
                     </td>
-                    <td><p>${order.odatetime }</p></td>
+                    <td><p><fmt:formatDate value="${order.odatetime}" pattern="yyyy年MM月dd日 HH:mm:ss"/></p></td>
+
+
                 </tr>
 
             </c:forEach>
 
 
-
         </table>
-
-
 
 
     </div>
 </div>
 <!--//cart-items-->
-
-
-
-
 
 
 <!--footer-->

@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 public interface AdminManageByTypeService {
     String findAll(HttpServletRequest request);
 
-    String add(String name, HttpServletRequest request);
+    String insert(String name, HttpServletRequest request);
 
     String delete(Integer id, HttpServletRequest request);
 

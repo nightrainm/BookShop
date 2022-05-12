@@ -25,6 +25,9 @@
     <c:if test="${!empty msg }">
         <div class="alert alert-danger">${msg }</div>
     </c:if>
+    <c:if test="${!empty failMsg }">
+        <div class="alert alert-danger">${failMsg }</div>
+    </c:if>
     <br><br>
     <form class="form-horizontal" action="user_add" method="post">
         <div class="form-group">
@@ -36,25 +39,25 @@
         <div class="form-group">
             <label for="input_name" class="col-sm-1 control-label">真实姓名</label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" id="input_name" name="urealname" required="required"/>
+                <input type="text" class="form-control"  name="urealname" required="required"/>
             </div>
         </div>
         <div class="form-group">
             <label for="input_name" class="col-sm-1 control-label">密码</label>
             <div class="col-sm-6">
-                <input type="password" class="form-control" id="input_name" name="upwd" required="required"/>
+                <input type="password" class="form-control"  name="upwd" required="required"/>
             </div>
         </div>
         <div class="form-group">
             <label for="input_name" class="col-sm-1 control-label">电话</label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" id="input_name" name="uphone" />
+                <input type="text" class="form-control"  name="uphone" />
             </div>
         </div>
         <div class="form-group">
             <label for="input_name" class="col-sm-1 control-label">地址</label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" id="input_name" name="uaddress"/>
+                <input type="text" class="form-control"  name="uaddress"/>
             </div>
         </div>
         <div class="form-group">

@@ -27,7 +27,8 @@ public class User implements Serializable {
 
     private boolean isadmin;
 
-    public User(Integer uid, String uname, String upwd, String urealname, Date uredgt, Integer urole,
+    public User(Integer uid, String uname, String upwd,
+                String urealname, Date uredgt, Integer urole,
                 String umark, String uphone, String uaddress) {
         this.uid = uid;
         this.uname = uname;
@@ -118,7 +119,7 @@ public class User implements Serializable {
         this.uaddress = uaddress;
     }
 
-    public boolean isIsadmin() {
+    public boolean isAdmin() {
         return isadmin;
     }
 

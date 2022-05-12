@@ -5,6 +5,7 @@ import com.fc.entity.Booktype;
 import com.fc.service.AdminManageByTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -21,26 +22,39 @@ public class AdminManageByTypeServiceImpl implements AdminManageByTypeService {
     }
 
     @Override
-    public String add(String name, HttpServletRequest request) {
-        booktypeMapper.add(name);
-        List<Booktype> list = booktypeMapper.findTypesInfo();
-        request.getServletContext().setAttribute("bookTypes", list);
+    public String insert(String name, HttpServletRequest request) {
+        try {
+            booktypeMapper.insert(name);
+            List<Booktype> list = booktypeMapper.findTypesInfo();
+            request.getServletContext().setAttribute("bookTypes", list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "redirect:type_list";
     }
 
     @Override
     public String delete(Integer id, HttpServletRequest request) {
-        booktypeMapper.delete(id);
-        List<Booktype> list = booktypeMapper.findTypesInfo();
-        request.getServletContext().setAttribute("bookTypes", list);
+        try {
+            booktypeMapper.delete(id);
+            List<Booktype> list = booktypeMapper.findTypesInfo();
+            request.getServletContext().setAttribute("bookTypes", list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return "redirect:type_list";
     }
 
     @Override
     public String update(Booktype booktype, HttpServletRequest request) {
-        booktypeMapper.update(booktype);
-        List<Booktype> list = booktypeMapper.findTypesInfo();
-        request.getServletContext().setAttribute("bookTypes", list);
+        try {
+            booktypeMapper.update(booktype);
+            List<Booktype> list = booktypeMapper.findTypesInfo();
+            request.getServletContext().setAttribute("bookTypes", list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "redirect:type_list";
     }
 }

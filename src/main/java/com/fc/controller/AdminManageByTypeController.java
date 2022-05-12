@@ -19,7 +19,7 @@ public class AdminManageByTypeController {
     }
     @RequestMapping("type_add")
     public String insert(String btname ,HttpServletRequest request){
-        return adminManageByTypeService.add(btname,request);
+        return adminManageByTypeService.insert(btname,request);
     }
     @RequestMapping("type_delete")
     public String delete(Integer btid,HttpServletRequest request){
