@@ -21,19 +21,19 @@ public class IndexServiceImpl implements IndexService {
     private BookTypeMapper bookTypeMapper;
 
     @Override
-    public String init(HttpServletRequest req) {
+    public String init(HttpServletRequest req, Integer pageNumber, Integer pageSize) {
         HttpSession session = req.getSession(true);
         //初始化图书
-        //今日热销
-        PageHelper.startPage(1, 1);
+        //条幅(今日热销)
+        PageHelper.startPage(pageNumber, 1);
         List<Book> list = bookMapper.findAllByRecommendType(1);
         session.setAttribute("scrollBook", list.get(0));
         //热销
-        PageHelper.startPage(1, 8);
+        PageHelper.startPage(pageNumber, pageSize);
         list = bookMapper.findAllByRecommendType(2);
         session.setAttribute("hotList", list);
         //新品
-        PageHelper.startPage(1, 8);
+        PageHelper.startPage(pageNumber, pageSize);
         list = bookMapper.findAllByRecommendType(3);
         session.setAttribute("newList", list);
         //

@@ -11,7 +11,7 @@ public interface AdminManageUserService {
 
     ModelAndView userEditShow(Integer uid, HttpSession session, ModelAndView mv);
 
-    ModelAndView user_list(ModelAndView mv, Integer pageNumber, HttpSession session);
+    ModelAndView user_list(ModelAndView mv, Integer pageNumber, Integer pageSize, HttpSession session);
 
     ModelAndView delete(Integer uid, ModelAndView mv);
 

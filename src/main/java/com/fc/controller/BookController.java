@@ -30,8 +30,8 @@ public class BookController {
     public ModelAndView books(
                               ModelAndView mv,
                               @RequestParam Integer rtype,
-                              @RequestParam(defaultValue = "1") Integer pageNumber, @RequestParam(defaultValue = "8") Integer pageSize) {
-
+                              @RequestParam(defaultValue = "1") Integer pageNumber,
+                              @RequestParam(defaultValue = "8") Integer pageSize) {
         return bookService.books(rtype, pageNumber, pageSize,mv);
 
     }

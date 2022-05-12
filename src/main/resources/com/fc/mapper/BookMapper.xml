@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fc.dao.BookMapper">
     <cache/>
-    <resultMap id="BaseResultMap" type="com.fc.entity.Book" >
+    <resultMap id="BaseResultMap" type="com.fc.entity.Book">
         <id column="b_id" jdbcType="INTEGER" property="bid"/>
         <result column="b_isbn" jdbcType="VARCHAR" property="bisbn"/>
         <result column="b_name" jdbcType="VARCHAR" property="bname"/>
@@ -75,6 +75,10 @@
         delete
         from book
         where b_id = #{id}
+    </delete>
+    <delete id="deleteAllByBookType">
+        delete  from  book
+        where bt_id = #{btid}
     </delete>
 
     <update id="update">

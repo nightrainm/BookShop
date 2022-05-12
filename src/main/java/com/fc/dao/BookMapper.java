@@ -21,6 +21,8 @@ public interface BookMapper {
     int update(Book book);
 
     int delete(@Param("id") Integer id);
+
+    int deleteAllByBookType(@Param("btid") Integer id);
     List<Book> findAllByRecommendType(@Param("type") int type);
 
     List<Book> search(String keyword);

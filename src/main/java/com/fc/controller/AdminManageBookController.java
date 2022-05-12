@@ -1,4 +1,5 @@
 package com.fc.controller;
+
 import com.fc.service.AdminManageBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,20 +28,24 @@ public class AdminManageBookController {
     }
 
     @GetMapping("book_list")
-    public String list(@RequestParam(value = "pageNumber", defaultValue = "1") Integer pageNumber, Integer rtype, HttpServletRequest request) {
-        return adminManageBookService.getList(pageNumber, rtype, request);
+    public String list(@RequestParam(value = "pageNumber", defaultValue = "1") Integer pageNumber,
+                       @RequestParam(value = "pageSize", defaultValue = "8") Integer pageSize,
+                       Integer rtype, HttpServletRequest request) {
+        return adminManageBookService.getList(pageNumber, pageSize, rtype, request);
     }
 
     @GetMapping("book_change")
     public String change(Integer bid, Integer rtype, String method, Integer page) {
         return adminManageBookService.change(bid, rtype, method, page);
     }
+
     @PostMapping("book_update")
-    public String update(HttpServletRequest request){
-        return  adminManageBookService.update(request);
+    public String update(HttpServletRequest request) {
+        return adminManageBookService.update(request);
     }
+
     @GetMapping("book_delete")
-    public String delete(Integer bid){
-        return  adminManageBookService.delete(bid);
+    public String delete(Integer bid) {
+        return adminManageBookService.delete(bid);
     }
 }

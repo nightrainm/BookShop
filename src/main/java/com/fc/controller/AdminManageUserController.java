@@ -18,42 +18,48 @@ public class AdminManageUserController {
 
     @Autowired
     private AdminManageUserService adminManageUserService;
+
     @PostMapping("user_add")
-    public ModelAndView userAdd(ModelAndView mv,  User user){
-        mv = adminManageUserService.userAdd(mv,user);
+    public ModelAndView userAdd(ModelAndView mv, User user) {
+        mv = adminManageUserService.userAdd(mv, user);
         return mv;
     }
+
     @GetMapping("user_edit_show")
-    public ModelAndView userEditShow(Integer uid,HttpSession session,ModelAndView mv){
-        mv = adminManageUserService.userEditShow(uid,session,mv);
+    public ModelAndView userEditShow(Integer uid, HttpSession session, ModelAndView mv) {
+        mv = adminManageUserService.userEditShow(uid, session, mv);
         return mv;
     }
+
     @RequestMapping("user_list")
-    public ModelAndView user_list(@RequestParam("pageNumber") Integer pageNumber, ModelAndView mv, HttpSession session){
-        mv = adminManageUserService.user_list(mv,pageNumber,session);
+    public ModelAndView user_list(@RequestParam("pageNumber") Integer pageNumber,
+                                  @RequestParam(value = "pageSize", defaultValue = "8") Integer pageSize,
+                                  ModelAndView mv, HttpSession session) {
+        mv = adminManageUserService.user_list(mv, pageNumber, pageSize, session);
         return mv;
     }
+
     @GetMapping("user_delete")
-    public ModelAndView delete(Integer uid,ModelAndView mv){
-        mv = adminManageUserService.delete(uid,mv);
+    public ModelAndView delete(Integer uid, ModelAndView mv) {
+        mv = adminManageUserService.delete(uid, mv);
         return mv;
     }
 
     @PostMapping("user_update")
-    public ModelAndView userUpdate(User user,HttpSession session,ModelAndView mv){
-        mv = adminManageUserService.update(user,session,mv);
+    public ModelAndView userUpdate(User user, HttpSession session, ModelAndView mv) {
+        mv = adminManageUserService.update(user, session, mv);
 
         return mv;
     }
 
     @PostMapping("change_password")
-    public ModelAndView changePassword(User user,ModelAndView mv,HttpSession session){
-        mv = adminManageUserService.updatePassword(user,mv,session);
+    public ModelAndView changePassword(User user, ModelAndView mv, HttpSession session) {
+        mv = adminManageUserService.updatePassword(user, mv, session);
         return mv;
     }
 
     @GetMapping("logout")
-    public ModelAndView logout(ModelAndView mv,HttpSession session){
+    public ModelAndView logout(ModelAndView mv, HttpSession session) {
         session.removeAttribute("user");
         mv.setViewName("redirect:/");
         return mv;

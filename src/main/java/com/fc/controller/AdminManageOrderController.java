@@ -17,7 +17,8 @@ public class AdminManageOrderController {
     @Autowired
     private AdminManageOrderService orderListService;
     @RequestMapping("order_list")
-    public ModelAndView list( ModelAndView mv, @RequestParam(defaultValue = "1") Integer pageNumber, @RequestParam(defaultValue = "8") Integer pageSize, Integer ostatus){
+    public ModelAndView list( ModelAndView mv, @RequestParam(defaultValue = "1") Integer pageNumber,
+                              @RequestParam(defaultValue = "8") Integer pageSize, Integer ostatus){
         return orderListService.list(mv,pageNumber,pageSize,ostatus);
     }
     @GetMapping("order_delete")
