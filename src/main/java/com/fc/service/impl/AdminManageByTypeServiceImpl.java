@@ -1,5 +1,6 @@
 package com.fc.service.impl;
 
+import com.fc.dao.BookMapper;
 import com.fc.dao.BookTypeMapper;
 import com.fc.entity.Booktype;
 import com.fc.service.AdminManageByTypeService;
@@ -13,6 +14,8 @@ import java.util.List;
 public class AdminManageByTypeServiceImpl implements AdminManageByTypeService {
     @Autowired
     private BookTypeMapper booktypeMapper;
+    @Autowired
+    private BookMapper bookMapper;
 
     @Override
     public String findAll(HttpServletRequest request) {
@@ -36,6 +39,7 @@ public class AdminManageByTypeServiceImpl implements AdminManageByTypeService {
     @Override
     public String delete(Integer id, HttpServletRequest request) {
         try {
+            bookMapper.deleteAllByBookType(id);
             booktypeMapper.delete(id);
             List<Booktype> list = booktypeMapper.findTypesInfo();
             request.getServletContext().setAttribute("bookTypes", list);

@@ -8,7 +8,6 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
@@ -60,9 +59,9 @@ public class AdminManageUserServiceImpl implements AdminManageUserService {
     }
 
     @Override
-    public ModelAndView user_list(ModelAndView mv, Integer pageNumber, HttpSession session) {
+    public ModelAndView user_list(ModelAndView mv, Integer pageNumber, Integer pageSize, HttpSession session) {
         try {
-            PageHelper.startPage(pageNumber, 8);
+            PageHelper.startPage(pageNumber, pageSize);
             List<User> users = userMapper.findAll();
             PageVO<User> pageVO = new PageVO<>(users);
             session.setAttribute("p", pageVO);

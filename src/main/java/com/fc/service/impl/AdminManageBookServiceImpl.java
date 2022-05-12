@@ -66,9 +66,9 @@ public class AdminManageBookServiceImpl implements AdminManageBookService {
 
     //图书列表
     @Override
-    public String getList(Integer pageNumber, Integer rtype, HttpServletRequest request) {
+    public String getList(Integer pageNumber, Integer pageSize, Integer rtype, HttpServletRequest request) {
         List<Book> list;
-        PageHelper.startPage(pageNumber, 8);
+        PageHelper.startPage(pageNumber, pageSize);
         if (rtype == null || rtype == 0) {
             list = mapper.findAll();
         } else {
