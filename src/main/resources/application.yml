@@ -8,7 +8,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/book_shop?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     username: root
-    password: 13623684875
+    password: 6666666
   transaction:
     rollback-on-commit-failure: true
   #  devtools:
